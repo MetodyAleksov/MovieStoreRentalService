@@ -2,7 +2,7 @@
 using System.Linq;
 using MovieStoreRentalService.Data;
 
-namespace MovieStoreRental.Data.Common
+namespace MovieStoreRentalService.Data.Common
 {
     public class Repository : IRepository
     {
