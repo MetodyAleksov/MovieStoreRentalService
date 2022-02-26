@@ -2,7 +2,7 @@
 using System.Linq;
 using MovieStoreRentalService.Data;
 
-namespace SMS.Data.Common
+namespace MovieStoreRental.Data.Common
 {
     public class Repository : IRepository
     {
