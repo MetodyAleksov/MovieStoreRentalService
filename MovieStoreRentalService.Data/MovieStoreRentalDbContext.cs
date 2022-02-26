@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MovieStoreRentalService.Data.Models;
 
 namespace MovieStoreRentalService.Data
 {
@@ -6,6 +7,14 @@ namespace MovieStoreRentalService.Data
     {
         public MovieStoreRentalDbContext()
         { }
+
+        public DbSet<Users> Users { get; set; }
+
+        public DbSet<Addresses> Addresses { get; set; }
+
+        public DbSet<Rentals> Rentals { get; set; }
+
+        public DbSet<UserRentals> UsersRentals { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -16,6 +25,9 @@ namespace MovieStoreRentalService.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<UserRentals>()
+                .HasKey(m => new {m.UserId, m.RentalId});
+
             base.OnModelCreating(modelBuilder);
         }
     }
