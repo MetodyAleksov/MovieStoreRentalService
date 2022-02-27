@@ -5,7 +5,9 @@ VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieStoreRentalService", "MovieStoreRentalService\MovieStoreRentalService.csproj", "{F072F3EA-905C-40D3-9FC9-82CB2C6A60DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieStoreRentalService.Data", "MovieStoreRentalService.Data\MovieStoreRentalService.Data.csproj", "{EB281BCF-6D09-462E-AA47-2DAB6A74D517}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieStoreRentalService.Data", "MovieStoreRentalService.Data\MovieStoreRentalService.Data.csproj", "{EB281BCF-6D09-462E-AA47-2DAB6A74D517}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieStoreRentalService.DTO", "MovieStoreRentalService.DTO\MovieStoreRentalService.DTO.csproj", "{ACCE0C00-B7ED-4A25-ACE1-0DD0DDFEF334}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{EB281BCF-6D09-462E-AA47-2DAB6A74D517}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB281BCF-6D09-462E-AA47-2DAB6A74D517}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB281BCF-6D09-462E-AA47-2DAB6A74D517}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACCE0C00-B7ED-4A25-ACE1-0DD0DDFEF334}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACCE0C00-B7ED-4A25-ACE1-0DD0DDFEF334}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACCE0C00-B7ED-4A25-ACE1-0DD0DDFEF334}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACCE0C00-B7ED-4A25-ACE1-0DD0DDFEF334}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
