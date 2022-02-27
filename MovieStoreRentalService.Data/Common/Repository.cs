@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using MovieStoreRentalService.Data;
 
 namespace MovieStoreRentalService.Data.Common
 {
