@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SMS.Data.Common
+namespace MovieStoreRentalService.Data.Common
 {
     public interface IRepository
     {
