@@ -10,4 +10,8 @@
     <Folder Include="Common\Enums\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MovieStoreRentalService.Data\MovieStoreRentalService.Data.csproj" />
+  </ItemGroup>
+
 </Project>
