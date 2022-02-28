@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MovieStoreRentalService.Data\MovieStoreRentalService.Data.csproj" />
+    <ProjectReference Include="..\MovieStoreRentalService.DTO\MovieStoreRentalService.DTO.csproj" />
   </ItemGroup>
 
 </Project>

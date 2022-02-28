@@ -1,4 +1,5 @@
-﻿namespace MovieStoreRentalService.DTO;
+﻿#pragma warning disable CS8618
+namespace MovieStoreRentalService.DTO;
 
 public class UserRentalDTO
 {
