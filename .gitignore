@@ -361,3 +361,75 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# System / Log files
+*.DS_Store
+*.log
+
+# Archives
+*.zip
+
+# Sass Cache
+.sass-cache
+
+# Project files
+.idea
+nbproject
+nbproject/private
+.vscode/
+.vs/
+
+# Node / Bower
+node_modules/
+bower_components/
+
+# Plugins
+MovieStoreRentalService/wwwroot/plugins/**/*.html
+MovieStoreRentalService/wwwroot/plugins/**/*.less
+MovieStoreRentalService/wwwroot/plugins/**/*.md
+MovieStoreRentalService/wwwroot/plugins/**/*.scss
+MovieStoreRentalService/wwwroot/plugins/**/*.ts
+MovieStoreRentalService/wwwroot/plugins/**/bower.json
+MovieStoreRentalService/wwwroot/plugins/**/package.json
+MovieStoreRentalService/wwwroot/plugins/**/webpack.config.js
+MovieStoreRentalService/wwwroot/plugins/**/demo/
+MovieStoreRentalService/wwwroot/plugins/**/demos/
+MovieStoreRentalService/wwwroot/plugins/**/dev/
+MovieStoreRentalService/wwwroot/plugins/**/example/
+MovieStoreRentalService/wwwroot/plugins/**/examples/
+MovieStoreRentalService/wwwroot/plugins/**/less/
+MovieStoreRentalService/wwwroot/plugins/**/test/
+MovieStoreRentalService/wwwroot/plugins/**/tests/
+MovieStoreRentalService/wwwroot/plugins/daterangepicker/website/
+MovieStoreRentalService/wwwroot/plugins/daterangepicker/drp.png
+MovieStoreRentalService/wwwroot/plugins/daterangepicker/moment.min.js
+MovieStoreRentalService/wwwroot/plugins/daterangepicker/package.js
+MovieStoreRentalService/wwwroot/plugins/daterangepicker/website.css
+MovieStoreRentalService/wwwroot/plugins/daterangepicker/website.js
+MovieStoreRentalService/wwwroot/plugins/jquery-ui/AUTHORS.txt
+MovieStoreRentalService/wwwroot/plugins/jquery-ui/external/jquery/jquery.js
+MovieStoreRentalService/wwwroot/plugins/inputmask/bindings/
+MovieStoreRentalService/wwwroot/plugins/flot/plugins/jquery*.js
+!MovieStoreRentalService/wwwroot/plugins/flot/plugins/jquery.flot.*.js
+!MovieStoreRentalService/wwwroot/plugins/**/LICENSE.md
+!MovieStoreRentalService/wwwroot/plugins/**/LICENSE.txt
+!MovieStoreRentalService/wwwroot/plugins/**/license.md
+!MovieStoreRentalService/wwwroot/plugins/**/license.txt
+!MovieStoreRentalService/wwwroot/plugins/**/LICENSE
+!MovieStoreRentalService/wwwroot/plugins/**/license
+!MovieStoreRentalService/wwwroot/plugins/**/COPYING
+
+
+# Docs
+/docs/_site/
+/docs/vendor/
+/docs/.bundle/
+/docs_html/
+.jekyll-cache/
+.jekyll-metadata
+
+# ETC
+TODO
+test.html
+ad.js
+/.cache/
