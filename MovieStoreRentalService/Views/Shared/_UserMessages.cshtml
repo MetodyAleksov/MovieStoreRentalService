@@ -1,0 +1,28 @@
+﻿@using MovieStoreRentalService.Core
+
+@if (ViewData[Constants.ErrorMessage] != null)
+{
+    <script>
+        $(function() {
+            toastr.error('@ViewData[Constants.ErrorMessage]?.ToString()');
+        });
+    </script>
+}
+    
+@if (ViewData[Constants.WarningMessage] != null)
+{
+    <script>
+        $(function() {
+            toastr.warning('@ViewData[Constants.WarningMessage]?.ToString()');
+        });
+    </script>
+}
+    
+@if (ViewData[Constants.SuccessMessage] != null)
+{
+    <script>
+        $(function() {
+            toastr.success('@ViewData[Constants.SuccessMessage]?.ToString()');
+        });
+    </script>
+}

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MovieStoreRentalService.Models;
 using System.Diagnostics;
+using MovieStoreRentalService.Core;
 
 namespace MovieStoreRentalService.Controllers
 {
@@ -15,6 +16,8 @@ namespace MovieStoreRentalService.Controllers
 
         public IActionResult Index()
         {
+            ViewData[Constants.SuccessMessage] = "Something broke dude";
+
             return View();
         }
 
