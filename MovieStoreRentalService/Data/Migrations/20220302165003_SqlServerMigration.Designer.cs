@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieStoreRentalService.Data;
 
@@ -11,9 +12,10 @@ using MovieStoreRentalService.Data;
 namespace MovieStoreRentalService.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220302165003_SqlServerMigration")]
+    partial class SqlServerMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -224,124 +226,6 @@ namespace MovieStoreRentalService.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("MovieStoreRentalService.Data.Models.Addresses", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasMaxLength(70)
-                        .HasColumnType("nvarchar(70)");
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("StreetName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(70)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Addresses");
-                });
-
-            modelBuilder.Entity("MovieStoreRentalService.Data.Models.Rentals", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasMaxLength(70)
-                        .HasColumnType("nvarchar(70)");
-
-                    b.Property<int>("AmountAvailable")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasMaxLength(2083)
-                        .HasColumnType("nvarchar(2083)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Rentals");
-                });
-
-            modelBuilder.Entity("MovieStoreRentalService.Data.Models.UserRentals", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(70)");
-
-                    b.Property<string>("RentalId")
-                        .HasColumnType("nvarchar(70)");
-
-                    b.Property<DateTime>("DateRented")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsPaid")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("ReturnDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("UserId", "RentalId");
-
-                    b.HasIndex("RentalId");
-
-                    b.ToTable("UsersRentals");
-                });
-
-            modelBuilder.Entity("MovieStoreRentalService.Data.Models.Users", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasMaxLength(70)
-                        .HasColumnType("nvarchar(70)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -391,48 +275,6 @@ namespace MovieStoreRentalService.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("MovieStoreRentalService.Data.Models.Addresses", b =>
-                {
-                    b.HasOne("MovieStoreRentalService.Data.Models.Users", "Users")
-                        .WithMany("Addresses")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("MovieStoreRentalService.Data.Models.UserRentals", b =>
-                {
-                    b.HasOne("MovieStoreRentalService.Data.Models.Rentals", "Rentals")
-                        .WithMany("UserRentals")
-                        .HasForeignKey("RentalId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MovieStoreRentalService.Data.Models.Users", "Users")
-                        .WithMany("UserRentals")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Rentals");
-
-                    b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("MovieStoreRentalService.Data.Models.Rentals", b =>
-                {
-                    b.Navigation("UserRentals");
-                });
-
-            modelBuilder.Entity("MovieStoreRentalService.Data.Models.Users", b =>
-                {
-                    b.Navigation("Addresses");
-
-                    b.Navigation("UserRentals");
                 });
 #pragma warning restore 612, 618
         }
