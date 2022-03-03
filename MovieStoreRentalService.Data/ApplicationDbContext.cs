@@ -23,7 +23,8 @@ namespace MovieStoreRentalService.Data
         {
             base.OnConfiguring(optionsBuilder);
 
-            optionsBuilder.UseSqlServer(DatabaseConfiguration.ConnectionString);
+            optionsBuilder.UseSqlServer(DatabaseConfiguration.ConnectionString,
+                b => b.MigrationsAssembly("MovieStoreRentalService"));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
