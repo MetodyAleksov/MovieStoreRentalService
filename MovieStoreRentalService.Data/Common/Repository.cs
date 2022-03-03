@@ -6,7 +6,7 @@ namespace MovieStoreRentalService.Data.Common
     {
         private readonly DbContext dbContext;
 
-        public Repository(MovieStoreRentalDbContext context)
+        public Repository(ApplicationDbContext context)
         {
             dbContext = context;
         }
