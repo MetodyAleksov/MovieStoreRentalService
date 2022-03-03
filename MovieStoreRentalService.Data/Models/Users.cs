@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
 namespace MovieStoreRentalService.Data.Models;
 
-public class Users
+public class Users : IdentityUser
 {
     public Users()
     {
