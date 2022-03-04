@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace MovieStoreRentalService.ModelBinders;
 
-public class DecimalModelBinder : IModelBinder
+public class DoubleModelBinder : IModelBinder
 {
     public Task BindModelAsync(ModelBindingContext bindingContext)
     {
@@ -13,7 +13,7 @@ public class DecimalModelBinder : IModelBinder
 
         if (valueResult != ValueProviderResult.None || !String.IsNullOrEmpty(valueResult.FirstValue))
         {
-            decimal actualValue = 0;
+            double actualValue = 0;
             bool wasSuccessful = false;
 
             try
@@ -24,7 +24,7 @@ public class DecimalModelBinder : IModelBinder
                 value = value
                     .Replace(",", CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
 
-                actualValue = Convert.ToDecimal(value, CultureInfo.CurrentCulture);
+                actualValue = Convert.ToDouble(value, CultureInfo.CurrentCulture);
                 wasSuccessful = true;
             }
             catch (FormatException ex)
