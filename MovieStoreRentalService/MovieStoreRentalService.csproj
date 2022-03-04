@@ -20,4 +20,8 @@
     <ProjectReference Include="..\MovieStoreRentalService.DTO\MovieStoreRentalService.DTO.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ModelBinders\" />
+  </ItemGroup>
+
 </Project>
