@@ -11,18 +11,12 @@ namespace MovieStoreRentalService.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddRental()
+        public IActionResult Add(string name, string imageUrl, string type, string amountAvailable, string price)
         {
             try
             {
-                string name = ViewData["Name"].ToString();
-                string url = ViewData["ImageUrl"].ToString();
-                string type = ViewData["Type"].ToString();
-                string amount = ViewData["AmountAvailable"].ToString();
-                string price = ViewData["Price"].ToString();
-
                 ViewData[Constants.SuccessMessage] = $"{type} successfully added!";
-                return Redirect("/");
+                return View();
             }
             catch (Exception)
             {
