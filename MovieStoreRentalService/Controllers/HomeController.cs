@@ -16,8 +16,6 @@ namespace MovieStoreRentalService.Controllers
 
         public IActionResult Index()
         {
-            ViewData[Constants.SuccessMessage] = "Something broke dude";
-
             return View();
         }
 
