@@ -1,5 +1,8 @@
-﻿using MovieStoreRentalService.Data.Common;
+﻿using System.Text;
+using MovieStoreRentalService.Core;
+using MovieStoreRentalService.Data.Common;
 using MovieStoreRentalService.DTO;
+using MovieStoreRentalService.DTO.Common.Enums;
 
 namespace MovieStoreRentalService.Services.Rentals;
 
@@ -15,23 +18,62 @@ public class RentalService : IRentalService
 
     private (bool, string) ValidateModel(RentalDTO dto)
     {
-        throw new NotImplementedException();
+        bool isValid = true;
+        StringBuilder sb = new StringBuilder();
+
+        if (dto.Name.Length > ValidationConstants.RENTAL_NAME_MAX_L ||
+            dto.Name.Length < ValidationConstants.RENTAL_NAME_MIN_L)
+        {
+            isValid = false;
+            sb.AppendLine("Username is invalid!");
+        }
+
+        if (dto.ImageURL.Length > ValidationConstants.RENTAL_IMAGEURL_MAX_L ||
+            dto.ImageURL.Length < ValidationConstants.RENTAL_IMAGEURL_MIN_L)
+        {
+            isValid = false;
+            sb.AppendLine("Image url is invalid!");
+        }
+
+        if (dto.AmountAvailable > ValidationConstants.RENTAL_AMOUNTAVAILABLE_MAX ||
+            dto.AmountAvailable < ValidationConstants.RENTAL_AMOUNTAVAILABLE_MIN)
+        {
+            isValid = false;
+            sb.AppendLine("Amount available is invalid!");
+        }
+
+        if (dto.Price > ValidationConstants.RENTAL_PRICE_MAX ||
+            dto.Price < ValidationConstants.RENTAL_PRICE_MIN)
+        {
+            isValid = false;
+            sb.AppendLine("Price is invalid!");
+        }
+
+        return (isValid, sb.ToString());
     }
 
     public (bool, string) AddRental(RentalDTO dto)
     {
-        Data.Models.Rentals rental = new Data.Models.Rentals()
+        (bool isValid, string errors) =  ValidateModel(dto);
+
+
+        if (isValid)
         {
-            ImageUrl = dto.ImageURL,
-            Name = dto.Name,
-            AmountAvailable = dto.AmountAvailable,
-            Price = dto.Price,
-            Type = dto.RentalType.ToString()
-        };
+            Data.Models.Rentals rental = new Data.Models.Rentals()
+            {
+                ImageUrl = dto.ImageURL,
+                Name = dto.Name,
+                AmountAvailable = dto.AmountAvailable,
+                Price = dto.Price,
+                Type = dto.RentalType.ToString()
+            };
 
-        repo.Add(rental);
-        repo.SaveChanges();
+            repo.Add(rental);
+            repo.SaveChanges();
 
-        return (true, null);
+            return (true, null);
+        }
+
+        return (false, errors);
     }
 }
