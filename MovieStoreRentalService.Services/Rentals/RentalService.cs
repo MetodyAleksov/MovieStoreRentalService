@@ -2,7 +2,6 @@
 using MovieStoreRentalService.Core;
 using MovieStoreRentalService.Data.Common;
 using MovieStoreRentalService.DTO;
-using MovieStoreRentalService.DTO.Common.Enums;
 
 namespace MovieStoreRentalService.Services.Rentals;
 
