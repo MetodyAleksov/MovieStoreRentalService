@@ -1,8 +1,12 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MovieStoreRentalService.Core;
 using MovieStoreRentalService.Data;
+using MovieStoreRentalService.Data.Models;
+using MovieStoreRentalService.DTO;
 using MovieStoreRentalService.ModelBinders;
+using MovieStoreRentalService.Services.Rentals;
 using DateTimeModelBinderProvider = MovieStoreRentalService.ModelBinders.DateTimeModelBinderProvider;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.2" />
@@ -18,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MovieStoreRentalService.Core\MovieStoreRentalService.Core.csproj" />
     <ProjectReference Include="..\MovieStoreRentalService.DTO\MovieStoreRentalService.DTO.csproj" />
+    <ProjectReference Include="..\MovieStoreRentalService.Services\MovieStoreRentalService.Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>
