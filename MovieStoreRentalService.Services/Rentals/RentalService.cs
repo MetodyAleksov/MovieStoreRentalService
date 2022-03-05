@@ -13,13 +13,25 @@ public class RentalService : IRentalService
     }
 
 
-    public (bool, string) ValidateModel(RentalDTO dto)
+    private (bool, string) ValidateModel(RentalDTO dto)
     {
         throw new NotImplementedException();
     }
 
     public (bool, string) AddRental(RentalDTO dto)
     {
-        throw new NotImplementedException();
+        Data.Models.Rentals rental = new Data.Models.Rentals()
+        {
+            ImageUrl = dto.ImageURL,
+            Name = dto.Name,
+            AmountAvailable = dto.AmountAvailable,
+            Price = dto.Price,
+            Type = dto.RentalType.ToString()
+        };
+
+        repo.Add(rental);
+        repo.SaveChanges();
+
+        return (true, null);
     }
 }
