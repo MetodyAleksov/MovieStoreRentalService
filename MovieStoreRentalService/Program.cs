@@ -14,7 +14,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
+
 builder.Services.AddControllersWithViews()
     .AddMvcOptions(op =>
     {
@@ -22,8 +24,6 @@ builder.Services.AddControllersWithViews()
         op.ModelBinderProviders.Insert(1, new DateTimeModelBinderProvider(FormatConstants.DateFormat));
         op.ModelBinderProviders.Insert(2, new DoubleModelBinderProvider());
     });
-
-builder.Services.AddScoped<IRentalService>();
 
 var app = builder.Build();
 
