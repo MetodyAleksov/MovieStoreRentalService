@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using MovieStoreRentalService.Data.Models;
 
 namespace MovieStoreRentalService.Data
@@ -10,8 +11,7 @@ namespace MovieStoreRentalService.Data
             : base(options)
         {
         }
-
-        public DbSet<Users> Users { get; set; }
+        public new DbSet<Users> Users { get; set; }
 
         public DbSet<Addresses> Addresses { get; set; }
 
