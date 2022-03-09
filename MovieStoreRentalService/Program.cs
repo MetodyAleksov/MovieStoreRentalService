@@ -3,10 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using MovieStoreRentalService.Core;
 using MovieStoreRentalService.Data;
 using MovieStoreRentalService.ModelBinders;
+using MovieStoreRentalService.Services.Rentals;
 using DateTimeModelBinderProvider = MovieStoreRentalService.ModelBinders.DateTimeModelBinderProvider;
 
 var builder = WebApplication.CreateBuilder(args);
-
+var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContextConnection");
 // Add services to the container.
 var connectionString = DatabaseConfiguration.ConnectionString;
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -22,6 +23,8 @@ builder.Services.AddControllersWithViews()
         op.ModelBinderProviders.Insert(1, new DateTimeModelBinderProvider(FormatConstants.DateFormat));
         op.ModelBinderProviders.Insert(2, new DoubleModelBinderProvider());
     });
+
+builder.Services.AddScoped<IRentalService>();
 
 var app = builder.Build();
 

@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MovieStoreRentalService.Core;
 using MovieStoreRentalService.DTO;
 using MovieStoreRentalService.DTO.Common.Enums;
@@ -9,7 +8,12 @@ namespace MovieStoreRentalService.Controllers
 {
     public class RentalController : Controller
     {
-        private readonly IRentalService rentalService;
+        private readonly IRentalService _rentalService;
+
+        public RentalController(IRentalService rentalService)
+        {
+            this._rentalService = rentalService;
+        }
 
         public IActionResult Add()
         {
@@ -32,7 +36,7 @@ namespace MovieStoreRentalService.Controllers
                     Price = price
                 };
 
-                rentalService.AddRental(dto);
+                _rentalService.AddRental(dto);
 
                 ViewData[Constants.SuccessMessage] = $"{type} successfully added!";
                 return View();
