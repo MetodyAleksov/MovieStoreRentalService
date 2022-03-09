@@ -8,16 +8,12 @@ public class Addresses
     public Addresses()
     {
         Id = Guid.NewGuid().ToString();
+        Users = new HashSet<Users>();
     }
 
     [Required]
     [StringLength(70)]
     public string Id { get; set; }
-
-    [ForeignKey(nameof(Users))]
-    public string UserId { get; set; }
-
-    public Users Users { get; set; }
 
     [Required]
     [StringLength(100, MinimumLength = 2)]
@@ -30,4 +26,6 @@ public class Addresses
     [Required]
     [StringLength(100, MinimumLength = 2)]
     public string Country { get; set; }
+
+    public ICollection<Users> Users { get; set; }
 }
