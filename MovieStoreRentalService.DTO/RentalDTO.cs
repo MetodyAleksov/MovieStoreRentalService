@@ -9,6 +9,8 @@ public class RentalDTO
         UserRentals = new HashSet<UserRentalDTO>();
     }
 
+    public string Id { get; set; }
+
     public string Name { get; set; }
 
     public string ImageURL { get; set; }

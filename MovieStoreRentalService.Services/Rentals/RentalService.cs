@@ -62,6 +62,7 @@ public class RentalService : IRentalService
         {
             Data.Models.Rentals rental = new Data.Models.Rentals()
             {
+                Id = dto.Id,
                 ImageUrl = dto.ImageURL,
                 Name = dto.Name,
                 AmountAvailable = dto.AmountAvailable,
@@ -84,6 +85,7 @@ public class RentalService : IRentalService
         return repo.All<Data.Models.Rentals>()
             .Select(r => new RentalDTO()
             {
+                Id = r.Id,
                 Name = r.Name,
                 ImageURL = r.ImageUrl,
                 RentalType = r.Type.ToString().ToLower() == "movie" ? RentalType.Movie : RentalType.VideoGame,
