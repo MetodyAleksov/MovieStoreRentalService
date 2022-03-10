@@ -1,0 +1,40 @@
+﻿@using MovieStoreRentalService.DTO
+@{
+    RentalDTO model = (RentalDTO)ViewData["Model"];
+}
+
+<div class="card card-solid">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12 col-sm-6">
+                <div class="col-12">
+                <img src="@(model.ImageURL)" class="product-image" alt="Product Image">
+              </div>
+            </div>
+            <div class="col-12 col-sm-6">
+              <h3 class="my-3">@(model.Name)</h3>
+              <p> @(model.Description) </p>
+
+                <div class="bg-gray py-2 px-3 mt-4">
+                <h2 class="mb-0">
+                  $@(model.Price)
+                </h2>
+                <h4 class="mt-0">
+                  <small>Return by: @(System.DateTime.Today.DayOfWeek + 2) </small>
+                </h4>
+              </div>
+
+                <div class="mt-4">
+                    @*TODO: Make this button work*@
+                    <div class="btn btn-primary btn-lg btn-flat">
+                        <i class="fas fa-cart-plus fa-lg mr-2"></i>
+                        Add to Cart
+                    </div>
+                </div>
+
+            </div>
+          </div>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->

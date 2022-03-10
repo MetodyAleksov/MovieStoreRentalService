@@ -94,4 +94,34 @@ public class RentalService : IRentalService
                 Description = r.Description
             });
     }
+
+    public (bool, RentalDTO) FindById(string id)
+    {
+        var rental = repo.All<Data.Models.Rentals>()
+            .FirstOrDefault(d => d.Id == id);
+        bool isValid = true;
+        RentalDTO dto = null;
+
+        if (rental == null)
+        {
+            isValid = false;
+        }
+        else
+        {
+            Enum.TryParse(rental.Type, true, out RentalType rentalType);
+
+            dto = new RentalDTO()
+            {
+                Id = rental.Id,
+                AmountAvailable = rental.AmountAvailable,
+                Description = rental.Description,
+                ImageURL = rental.ImageUrl,
+                Name = rental.Name,
+                Price = rental.Price,
+                RentalType = rentalType
+            };
+        }
+
+        return (isValid, dto);
+    }
 }

@@ -22,5 +22,19 @@ namespace MovieStoreRentalService.Controllers
 
             return View();
         }
+
+        public IActionResult IndividualView(string id)
+        {
+            (bool isValid, RentalDTO dto) = _rentalService.FindById(id);
+
+            if (isValid)
+            {
+                ViewData["model"] = dto;
+
+                return View();
+            }
+
+            return Redirect("/Service/Shop");
+        }
     }
 }
