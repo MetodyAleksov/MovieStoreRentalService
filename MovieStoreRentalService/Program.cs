@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MovieStoreRentalService.Core;
 using MovieStoreRentalService.Data;
+using MovieStoreRentalService.Data.Common;
+using MovieStoreRentalService.Data.Models;
 using MovieStoreRentalService.ModelBinders;
 using MovieStoreRentalService.Services.Rentals;
 using DateTimeModelBinderProvider = MovieStoreRentalService.ModelBinders.DateTimeModelBinderProvider;
@@ -24,6 +26,34 @@ builder.Services.AddControllersWithViews()
         op.ModelBinderProviders.Insert(1, new DateTimeModelBinderProvider(FormatConstants.DateFormat));
         op.ModelBinderProviders.Insert(2, new DoubleModelBinderProvider());
     });
+
+//Identity config
+builder.Services.AddRazorPages();
+
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    // Password settings.
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequiredLength = 4;
+    options.Password.RequiredUniqueChars = 1;
+
+    // Lockout settings.
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1);
+    options.Lockout.MaxFailedAccessAttempts = 10;
+    options.Lockout.AllowedForNewUsers = true;
+
+    // User settings.
+    options.User.AllowedUserNameCharacters =
+        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+    options.User.RequireUniqueEmail = false;
+});
+
+//Service injection
+builder.Services.AddScoped<IRepository, Repository>();
+builder.Services.AddScoped<IRentalService, RentalService>();
 
 var app = builder.Build();
 

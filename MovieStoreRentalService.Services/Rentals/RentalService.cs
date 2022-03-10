@@ -1,7 +1,9 @@
-﻿using System.Text;
+﻿using System.Linq.Expressions;
+using System.Text;
 using MovieStoreRentalService.Core;
 using MovieStoreRentalService.Data.Common;
 using MovieStoreRentalService.DTO;
+using MovieStoreRentalService.DTO.Common.Enums;
 
 namespace MovieStoreRentalService.Services.Rentals;
 
@@ -64,7 +66,8 @@ public class RentalService : IRentalService
                 Name = dto.Name,
                 AmountAvailable = dto.AmountAvailable,
                 Price = dto.Price,
-                Type = dto.RentalType.ToString()
+                Type = dto.RentalType.ToString(),
+                Description = dto.Description
             };
 
             repo.Add(rental);
@@ -74,5 +77,19 @@ public class RentalService : IRentalService
         }
 
         return (false, errors);
+    }
+
+    public IEnumerable<RentalDTO> ListAllRentals()
+    {
+        return repo.All<Data.Models.Rentals>()
+            .Select(r => new RentalDTO()
+            {
+                Name = r.Name,
+                ImageURL = r.ImageUrl,
+                RentalType = r.Type.ToString().ToLower() == "movie" ? RentalType.Movie : RentalType.VideoGame,
+                AmountAvailable = r.AmountAvailable,
+                Price = r.Price,
+                Description = r.Description
+            });
     }
 }

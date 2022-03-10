@@ -3,10 +3,10 @@
 
 @{
     ViewData["Title"] = "Log in";
-    Layout = null;
+    //Layout = null;
 }
 
-<!DOCTYPE html>
+@*<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -60,17 +60,7 @@
             </div>
         </form>
 
-      @*<div class="social-auth-links text-center mt-2 mb-3">
-        <a href="#" class="btn btn-block btn-primary">
-          <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
-        </a>
-        <a href="#" class="btn btn-block btn-danger">
-          <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
-        </a>
-      </div>*@
-      <!-- /.social-auth-links -->
-
-      <p class="mb-1">
+        <p class="mb-1">
           <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
       </p>
       <p class="mb-0">
@@ -94,9 +84,9 @@
 }
 </body>
 </html>
+*@
 
-
-@*<h1>@ViewData["Title"]</h1>
+<h1>@ViewData["Title"]</h1>
 <div class="row">
     <div class="col-md-4">
         <section>
@@ -168,5 +158,8 @@
             }
         </section>
     </div>
-</div>*@
+</div>
 
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

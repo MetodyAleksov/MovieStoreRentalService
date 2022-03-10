@@ -19,5 +19,7 @@ public class RentalDTO
 
     public decimal Price { get; set; }
 
+    public string Description { get; set; }
+
     public ICollection<UserRentalDTO> UserRentals { get; set; }
 }

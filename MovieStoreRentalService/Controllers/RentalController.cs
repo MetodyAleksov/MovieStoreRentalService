@@ -21,7 +21,7 @@ namespace MovieStoreRentalService.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(string name, string imageUrl, string type, int amountAvailable, decimal price)
+        public IActionResult Add(string name, string imageUrl, string type, int amountAvailable, decimal price, string description)
         {
             try
             {
@@ -33,7 +33,8 @@ namespace MovieStoreRentalService.Controllers
                     ImageURL = imageUrl,
                     RentalType = rentalType,
                     AmountAvailable = amountAvailable,
-                    Price = price
+                    Price = price,
+                    Description = description
                 };
 
                 _rentalService.AddRental(dto);

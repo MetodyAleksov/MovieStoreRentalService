@@ -34,5 +34,8 @@ public class Rentals
     [Range(0, 100)]
     public decimal Price { get; set; }
 
+    [StringLength(300)]
+    public string Description { get; set; }
+
     public ICollection<UserRentals> UserRentals { get; set; }
 }

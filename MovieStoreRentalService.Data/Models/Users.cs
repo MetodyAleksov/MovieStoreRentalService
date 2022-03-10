@@ -6,14 +6,14 @@ namespace MovieStoreRentalService.Data.Models;
 
 public class Users : IdentityUser
 {
-    public Users()
-    {
-        UserRentals = new HashSet<UserRentals>();
-    }
+    [PersonalData]
+    public bool IsAdmin { get; set; }
 
     [ForeignKey(nameof(Addresses))]
-    public string AddressId { get; set; }
-    public Addresses Addresses { get; set; }
-
-    public ICollection<UserRentals> UserRentals { get; set; }
+    [PersonalData]
+    public string? AddressId { get; set; }
+    [PersonalData]
+    public Addresses? Addresses { get; set; }
+    
+    public ICollection<UserRentals>? UserRentals { get; set; }
 }
