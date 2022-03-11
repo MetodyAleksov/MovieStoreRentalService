@@ -45,7 +45,7 @@ namespace MovieStoreRentalService.Controllers
             catch (Exception)
             {
                 ViewData[Constants.ErrorMessage] = "Something went wrong!";
-                return Redirect("/Rentals/Add");
+                return Redirect("/Rental/Add");
             }
         }
     }

@@ -62,7 +62,6 @@ public class RentalService : IRentalService
         {
             Data.Models.Rentals rental = new Data.Models.Rentals()
             {
-                Id = dto.Id,
                 ImageUrl = dto.ImageURL,
                 Name = dto.Name,
                 AmountAvailable = dto.AmountAvailable,
