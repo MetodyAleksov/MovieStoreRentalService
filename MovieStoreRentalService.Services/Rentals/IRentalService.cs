@@ -9,6 +9,4 @@ public interface IRentalService
     IEnumerable<RentalDTO> ListAllRentals();
 
     (bool, RentalDTO) FindById(string id);
-
-    void Remove(string id);
 }

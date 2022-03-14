@@ -21,12 +21,6 @@ namespace MovieStoreRentalService.Data.Common
             return DbSet<T>().AsQueryable();
         }
 
-        public void Remove(string id)
-        {
-            this.dbContext.Remove(id);
-            this.SaveChangesAsync();
-        }
-
         public async Task<int> SaveChangesAsync()
         {
             return await dbContext.SaveChangesAsync();
