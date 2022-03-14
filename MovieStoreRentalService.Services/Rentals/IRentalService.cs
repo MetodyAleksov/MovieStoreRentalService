@@ -4,9 +4,11 @@ namespace MovieStoreRentalService.Services.Rentals;
 
 public interface IRentalService
 {
-    (bool, string) AddRental(RentalDTO dto);
+    Task<(bool, string)> AddRental(RentalDTO dto);
 
     IEnumerable<RentalDTO> ListAllRentals();
 
     (bool, RentalDTO) FindById(string id);
+
+    void Remove(string id);
 }

@@ -53,7 +53,7 @@ public class RentalService : IRentalService
         return (isValid, sb.ToString());
     }
 
-    public (bool, string) AddRental(RentalDTO dto)
+    public async Task<(bool, string)> AddRental(RentalDTO dto)
     {
         (bool isValid, string errors) =  ValidateModel(dto);
 
@@ -70,8 +70,8 @@ public class RentalService : IRentalService
                 Description = dto.Description
             };
 
-            repo.Add(rental);
-            repo.SaveChanges();
+            await repo.AddAsync(rental);
+            await repo.SaveChangesAsync();
 
             return (true, null);
         }
@@ -122,5 +122,10 @@ public class RentalService : IRentalService
         }
 
         return (isValid, dto);
+    }
+
+    public void RemoveById(string id)
+    {
+        repo.Remove(id);
     }
 }

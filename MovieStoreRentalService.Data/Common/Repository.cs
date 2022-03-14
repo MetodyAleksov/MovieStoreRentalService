@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MovieStoreRentalService.Data.Models;
 
 namespace MovieStoreRentalService.Data.Common
 {
@@ -12,9 +11,9 @@ namespace MovieStoreRentalService.Data.Common
             dbContext = context;
         }
 
-        public void Add<T>(T entity) where T : class
+        public async Task AddAsync<T>(T entity) where T : class
         {
-            DbSet<T>().Add(entity);
+            await dbContext.AddAsync(entity);
         }
 
         public IQueryable<T> All<T>() where T : class
@@ -22,9 +21,15 @@ namespace MovieStoreRentalService.Data.Common
             return DbSet<T>().AsQueryable();
         }
 
-        public int SaveChanges()
+        public void Remove(string id)
         {
-            return dbContext.SaveChanges();
+            this.dbContext.Remove(id);
+            this.SaveChangesAsync();
+        }
+
+        public async Task<int> SaveChangesAsync()
+        {
+            return await dbContext.SaveChangesAsync();
         }
 
         private DbSet<T> DbSet<T>() where T : class 
