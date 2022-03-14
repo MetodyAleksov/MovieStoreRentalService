@@ -7,5 +7,7 @@
         IQueryable<T> All<T>() where T : class;
 
         Task<int> SaveChangesAsync();
+
+        void Remove(string id);
     }
 }

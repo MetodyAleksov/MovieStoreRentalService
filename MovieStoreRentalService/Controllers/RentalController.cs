@@ -48,5 +48,13 @@ namespace MovieStoreRentalService.Controllers
                 return Redirect("/Rental/Add");
             }
         }
+
+        [HttpPost]
+        public IActionResult Remove(string id)
+        {
+            _rentalService.Remove(id);
+
+            return Redirect("/Service/Shop");
+        }
     }
 }
