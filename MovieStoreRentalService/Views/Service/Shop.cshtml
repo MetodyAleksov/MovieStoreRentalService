@@ -40,10 +40,11 @@
                         </div>
                         <div class="card-footer">
                             <div class="text-right">
-                                <form asp-controller="Rental" asp-action="Remove">
-
-                                </form>
+                               
                                 <form asp-controller="Service" asp-action="IndividualView">
+                                    <button asp-controller="Rental" asp-action="Remove" class="btn btn-sm btn-primary bg-red" type="submit" value="@(model.Id.ToString())" name="Id">
+                                        <i class="fas fa-ban"></i>
+                                    </button>
                                     <button class="btn btn-sm btn-primary" type="submit" value="@(model.Id.ToString())" name="Id">
                                         <i class="fas fa-info-circle"></i> View Details
                                     </button>

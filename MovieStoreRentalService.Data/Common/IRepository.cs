@@ -8,6 +8,6 @@
 
         Task<int> SaveChangesAsync();
 
-        void Remove(string id);
+        void RemoveRental(string id);
     }
 }

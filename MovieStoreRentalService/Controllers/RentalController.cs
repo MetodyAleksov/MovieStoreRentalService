@@ -52,7 +52,7 @@ namespace MovieStoreRentalService.Controllers
         [HttpPost]
         public IActionResult Remove(string id)
         {
-            _rentalService.Remove(id);
+            _rentalService.RemoveRental(id);
 
             return Redirect("/Service/Shop");
         }

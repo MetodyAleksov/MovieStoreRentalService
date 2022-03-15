@@ -10,5 +10,5 @@ public interface IRentalService
 
     (bool, RentalDTO) FindById(string id);
 
-    void Remove(string id);
+    void RemoveRental(string id);
 }

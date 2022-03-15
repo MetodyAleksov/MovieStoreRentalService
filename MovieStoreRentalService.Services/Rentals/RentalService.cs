@@ -124,8 +124,8 @@ public class RentalService : IRentalService
         return (isValid, dto);
     }
 
-    public void RemoveById(string id)
+    public void RemoveRental(string id)
     {
-        repo.Remove(id);
+        repo.RemoveRental(id);
     }
 }

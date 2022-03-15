@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MovieStoreRentalService.Data.Models;
 
 namespace MovieStoreRentalService.Data.Common
 {
@@ -23,8 +24,18 @@ namespace MovieStoreRentalService.Data.Common
 
         public void Remove(string id)
         {
-            this.dbContext.Remove(id);
-            this.SaveChangesAsync();
+            throw new NotImplementedException();
+        }
+
+        public void RemoveRental(string id)
+        {
+            var rental = this.DbSet<Rentals>()
+                .FirstOrDefault(x => x.Id == id);
+            if (rental != null)
+            {
+                this.dbContext.Remove(rental);
+                this.SaveChangesAsync();
+            }
         }
 
         public async Task<int> SaveChangesAsync()
