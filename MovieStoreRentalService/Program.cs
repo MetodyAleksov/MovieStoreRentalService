@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieStoreRentalService.Core;
 using MovieStoreRentalService.Data;
 using MovieStoreRentalService.Data.Common;
-using MovieStoreRentalService.Data.Models;
 using MovieStoreRentalService.ModelBinders;
 using MovieStoreRentalService.Services.Rentals;
 using DateTimeModelBinderProvider = MovieStoreRentalService.ModelBinders.DateTimeModelBinderProvider;
@@ -25,6 +25,7 @@ builder.Services.AddControllersWithViews()
         op.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
         op.ModelBinderProviders.Insert(1, new DateTimeModelBinderProvider(FormatConstants.DateFormat));
         op.ModelBinderProviders.Insert(2, new DoubleModelBinderProvider());
+        op.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
     });
 
 //Identity config
