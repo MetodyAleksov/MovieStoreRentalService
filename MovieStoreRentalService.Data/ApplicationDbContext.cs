@@ -4,13 +4,13 @@ using MovieStoreRentalService.Data.Models;
 
 namespace MovieStoreRentalService.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
-        public new DbSet<Users> Users { get; set; }
+        public new DbSet<ApplicationUser> Users { get; set; }
 
         public DbSet<Addresses> Addresses { get; set; }
 

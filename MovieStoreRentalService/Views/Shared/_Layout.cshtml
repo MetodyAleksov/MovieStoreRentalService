@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "Movie Store Rental Service";
-    bool isLoggedIn = ViewData["isLoggedIn"] == null;
+    bool isLoggedIn = this.User.IsInRole("Administrator");
 }
 
 <!DOCTYPE html>
@@ -65,27 +65,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
   </nav>
   <!-- /.navbar -->
 
-  <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+
+
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-      <img src="~/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+            <img src="~/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+            <span class="brand-text font-weight-light">AdminLTE 3</span>
     </a>
-
-    <!-- Sidebar -->
+     <!-- Sidebar -->
     <div class="sidebar">
-      <!-- Sidebar user panel (optional) -->
+       <!-- Sidebar user panel (optional) -->
       <partial name="_LoginPartial" />
-
-      <!-- Sidebar Menu -->
+       <!-- Sidebar Menu -->
       <partial name="_MainMenu" />
-      <!-- /.sidebar-menu -->
+       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
   </aside>
-
-  <!-- Content Wrapper. Contains page content -->
+        
+        <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">

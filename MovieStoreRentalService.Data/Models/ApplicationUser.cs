@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
+using MovieStoreRentalService.Data.Models;
 
-namespace MovieStoreRentalService.Data.Models;
-
-public class Users : IdentityUser
+public class ApplicationUser : IdentityUser
 {
     [PersonalData]
     public bool IsAdmin { get; set; }
@@ -13,7 +12,7 @@ public class Users : IdentityUser
     [PersonalData]
     public string? AddressId { get; set; }
     [PersonalData]
-    public Addresses? Addresses { get; set; }
+    public Addresses? Address { get; set; }
     
     public ICollection<UserRentals>? UserRentals { get; set; }
 }

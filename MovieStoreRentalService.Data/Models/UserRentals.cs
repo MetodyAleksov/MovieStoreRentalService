@@ -7,7 +7,7 @@ public class UserRentals
 {
     [ForeignKey(nameof(Users))]
     public string UserId { get; set; }
-    public Users Users { get; set; }
+    public ApplicationUser Users { get; set; }
 
     [ForeignKey(nameof(Rentals))]
     public string RentalId { get; set; }

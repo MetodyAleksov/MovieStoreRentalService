@@ -8,7 +8,7 @@ public class Addresses
     public Addresses()
     {
         Id = Guid.NewGuid().ToString();
-        Users = new HashSet<Users>();
+        Users = new HashSet<ApplicationUser>();
     }
 
     [Required]
@@ -27,5 +27,5 @@ public class Addresses
     [StringLength(100, MinimumLength = 2)]
     public string Country { get; set; }
 
-    public ICollection<Users> Users { get; set; }
+    public ICollection<ApplicationUser> Users { get; set; }
 }

@@ -2,6 +2,8 @@
 using MovieStoreRentalService.Models;
 using System.Diagnostics;
 using MovieStoreRentalService.Core;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace MovieStoreRentalService.Controllers
 {
@@ -14,8 +16,10 @@ namespace MovieStoreRentalService.Controllers
             _logger = logger;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
+            ViewData["isAdmin"] = this.User.IsInRole("admin");
             return View();
         }
 
