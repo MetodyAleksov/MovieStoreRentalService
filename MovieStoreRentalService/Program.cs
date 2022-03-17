@@ -10,14 +10,20 @@ using DateTimeModelBinderProvider = MovieStoreRentalService.ModelBinders.DateTim
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
-var connectionString = DatabaseConfiguration.ConnectionString;
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+//Application DB context
+var connectionString = DatabaseConfiguration.ConnectionString;
+builder.Services.AddDbContext<ApplicationDbContext>
+    (options => options.UseSqlServer(connectionString))
+    .AddDatabaseDeveloperPageExceptionFilter();
+
+builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = true;
+})
     .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultTokenProviders();
+    .AddDefaultTokenProviders()
+    .AddDefaultUI();
 
 builder.Services.AddControllersWithViews()
     .AddMvcOptions(op =>
@@ -25,32 +31,7 @@ builder.Services.AddControllersWithViews()
         op.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
         op.ModelBinderProviders.Insert(1, new DateTimeModelBinderProvider(FormatConstants.DateFormat));
         op.ModelBinderProviders.Insert(2, new DoubleModelBinderProvider());
-        op.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
     });
-
-//Identity config
-builder.Services.AddRazorPages();
-
-builder.Services.Configure<IdentityOptions>(options =>
-{
-    // Password settings.
-    options.Password.RequireDigit = false;
-    options.Password.RequireLowercase = false;
-    options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequireUppercase = false;
-    options.Password.RequiredLength = 4;
-    options.Password.RequiredUniqueChars = 1;
-
-    // Lockout settings.
-    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1);
-    options.Lockout.MaxFailedAccessAttempts = 10;
-    options.Lockout.AllowedForNewUsers = true;
-
-    // User settings.
-    options.User.AllowedUserNameCharacters =
-        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
-    options.User.RequireUniqueEmail = false;
-});
 
 //Service injection
 builder.Services.AddScoped<IRepository, Repository>();
