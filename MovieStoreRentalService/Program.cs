@@ -6,6 +6,7 @@ using MovieStoreRentalService.Data;
 using MovieStoreRentalService.Data.Common;
 using MovieStoreRentalService.ModelBinders;
 using MovieStoreRentalService.Services.Rentals;
+using MovieStoreRentalService.Services.User;
 using DateTimeModelBinderProvider = MovieStoreRentalService.ModelBinders.DateTimeModelBinderProvider;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +22,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 {
     options.SignIn.RequireConfirmedAccount = true;
 })
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders()
     .AddDefaultUI();
@@ -36,7 +38,7 @@ builder.Services.AddControllersWithViews()
 //Service injection
 builder.Services.AddScoped<IRepository, Repository>();
 builder.Services.AddScoped<IRentalService, RentalService>();
-
+builder.Services.AddScoped<IUserService, UserService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
