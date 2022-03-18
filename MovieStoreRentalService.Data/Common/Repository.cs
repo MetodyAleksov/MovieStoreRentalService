@@ -27,14 +27,14 @@ namespace MovieStoreRentalService.Data.Common
             throw new NotImplementedException();
         }
 
-        public void RemoveRental(string id)
+        public async Task RemoveRental(string id)
         {
             var rental = this.DbSet<Rentals>()
                 .FirstOrDefault(x => x.Id == id);
             if (rental != null)
             {
                 this.dbContext.Remove(rental);
-                this.SaveChangesAsync();
+                await this.SaveChangesAsync();
             }
         }
 

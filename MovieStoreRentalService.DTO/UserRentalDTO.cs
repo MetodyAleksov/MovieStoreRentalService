@@ -3,7 +3,7 @@ namespace MovieStoreRentalService.DTO;
 
 public class UserRentalDTO
 {
-    public UserDTO User { get; set; }
+    public ApplicationUser User { get; set; }
 
     public RentalDTO Rental { get; set; }
 

@@ -5,9 +5,6 @@ using MovieStoreRentalService.Data.Models;
 
 public class ApplicationUser : IdentityUser
 {
-    [PersonalData]
-    public bool IsAdmin { get; set; }
-
     [ForeignKey(nameof(Addresses))]
     [PersonalData]
     public string? AddressId { get; set; }

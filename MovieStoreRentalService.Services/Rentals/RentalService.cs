@@ -1,9 +1,8 @@
-﻿using System.Linq.Expressions;
-using System.Text;
-using MovieStoreRentalService.Core;
+﻿using MovieStoreRentalService.Core;
 using MovieStoreRentalService.Data.Common;
 using MovieStoreRentalService.DTO;
 using MovieStoreRentalService.DTO.Common.Enums;
+using System.Text;
 
 namespace MovieStoreRentalService.Services.Rentals;
 
@@ -97,7 +96,7 @@ public class RentalService : IRentalService
     public (bool, RentalDTO) FindById(string id)
     {
         var rental = repo.All<Data.Models.Rentals>()
-            .FirstOrDefault(d => d.Id == id);
+            .SingleOrDefault(d => d.Id == id);
         bool isValid = true;
         RentalDTO dto = null;
 
