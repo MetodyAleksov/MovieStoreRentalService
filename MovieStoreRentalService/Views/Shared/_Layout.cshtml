@@ -31,78 +31,82 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="container">
       <a href="/" class="navbar-brand">
         <i class="fas fa-laptop"></i>
-        <span class="brand-text font-weight-light"> PLACEHOLDER </span>
+        <span class="brand-text font-weight-light"> Movie Store </span>
       </a>
-     </div>
-      <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse order-3" id="navbarCollapse">
-        <!-- Left navbar links -->
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a href="/" class="nav-link">Home</a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">Contact</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Dropdown</a>
-            <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-              <li><a href="#" class="dropdown-item">Some action </a></li>
-              <li><a href="#" class="dropdown-item">Some other action</a></li>
-
-              <li class="dropdown-divider"></li>
-
-              <!-- Level two dropdown-->
-              <li class="dropdown-submenu dropdown-hover">
-                <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Hover for action</a>
-                <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
-                  <li>
-                    <a tabindex="-1" href="#" class="dropdown-item">level 2</a>
-                  </li>
-
-                  <!-- Level three dropdown-->
-                  <li class="dropdown-submenu">
-                    <a id="dropdownSubMenu3" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">level 2</a>
-                    <ul aria-labelledby="dropdownSubMenu3" class="dropdown-menu border-0 shadow">
-                      <li><a href="#" class="dropdown-item">3rd level</a></li>
-                      <li><a href="#" class="dropdown-item">3rd level</a></li>
-                    </ul>
-                  </li>
-                  <!-- End Level three -->
-
-                  <li><a href="#" class="dropdown-item">level 2</a></li>
-                  <li><a href="#" class="dropdown-item">level 2</a></li>
-                </ul>
-              </li>
-              <!-- End Level two -->
-            </ul>
-          </li>
-        </ul>
-
-      <!-- Right navbar links -->
     </div>
+
+     <div class="collapse navbar-collapse order-3" id="navbarCollapse">
+       <!-- Left navbar links -->
+       <ul class="navbar-nav">
+         <li class="nav-item">
+           <a href="/" class="nav-link">Home</a>
+         </li>
+         <li class="nav-item">
+           <a href="/Service/Shop" class="nav-link">Shop</a>
+         </li>
+         @if (!this.User.Identity.IsAuthenticated) 
+         {
+           <li class="nav-item">
+               <a href="/Identity/Account/Login" class="nav-link">Login</a>
+           </li>
+
+           <li class="nav-item">
+               <a href="/Identity/Account/Register" class="nav-link">Register</a>
+           </li>
+         }
+         else
+         {
+            <li class="nav-item">
+               <a href="#" class="nav-link">My Cart</a>
+            </li>
+
+            <li class="nav-item">
+               <a href="#" class="nav-link">My Account</a>
+            </li>
+         }
+                   @*<li class="nav-item dropdown">
+           <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Dropdown</a>
+           <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+             <li><a href="#" class="dropdown-item">Some action </a></li>
+             <li><a href="#" class="dropdown-item">Some other action</a></li>
+
+             <li class="dropdown-divider"></li>
+
+             <!-- Level two dropdown-->
+             <li class="dropdown-submenu dropdown-hover">
+               <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Hover for action</a>
+               <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+                 <li>
+                   <a tabindex="-1" href="#" class="dropdown-item">level 2</a>
+                 </li>
+
+                 <!-- Level three dropdown-->
+                 <li class="dropdown-submenu">
+                   <a id="dropdownSubMenu3" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">level 2</a>
+                   <ul aria-labelledby="dropdownSubMenu3" class="dropdown-menu border-0 shadow">
+                     <li><a href="#" class="dropdown-item">3rd level</a></li>
+                     <li><a href="#" class="dropdown-item">3rd level</a></li>
+                   </ul>
+                 </li>
+                 <!-- End Level three -->
+
+                 <li><a href="#" class="dropdown-item">level 2</a></li>
+                 <li><a href="#" class="dropdown-item">level 2</a></li>
+               </ul>
+             </li>
+             <!-- End Level two -->
+           </ul>
+         </li>*@
+
+       </ul>
+
+     <!-- Right navbar links -->
+     </div>
   </nav>
   <!-- /.navbar -->
         
         <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">@ViewData["Title"]</li>
-            </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
 
     <!-- Main content -->
     <div class="content">
