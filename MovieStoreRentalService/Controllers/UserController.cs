@@ -23,6 +23,7 @@ namespace MovieStoreRentalService.Controllers
             _userService = userService;
         }
 
+        [Authorize]
         public IActionResult Library()
         {
             RentalDTO dto = new RentalDTO()
@@ -36,19 +37,26 @@ namespace MovieStoreRentalService.Controllers
             return View(null, dto);
         }
 
-        public IActionResult Profile()
+        [Authorize]
+        public async Task<IActionResult> Profile()
         {
+            ApplicationUser currentUser = await _userManager.GetUserAsync(HttpContext.User);
+
+            ViewBag.User = currentUser;
+
             return View();
         }
 
         [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> ManageUsers()
+        public async Task<IActionResult> ManageUsers(string id)
         {
             var users = await _userService.GetAllUsers();
 
-            
+            var user = users.SingleOrDefault(u => u.Id == id);
 
-            return Ok();
+            await _userManager.AddToRoleAsync(user, "Administrator");
+
+            return Ok(user);
         }
 
         [Authorize(Roles = "Administrator")]
