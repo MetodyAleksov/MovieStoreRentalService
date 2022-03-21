@@ -5,6 +5,11 @@ using MovieStoreRentalService.Data.Models;
 
 public class ApplicationUser : IdentityUser
 {
+    public ApplicationUser()
+    {
+        UserRentals = new HashSet<UserRentals>();
+    }
+
     [ForeignKey(nameof(Addresses))]
     [PersonalData]
     public string? AddressId { get; set; }
