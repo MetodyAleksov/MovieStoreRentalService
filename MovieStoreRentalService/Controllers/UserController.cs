@@ -27,19 +27,7 @@ namespace MovieStoreRentalService.Controllers
             _userService = userService;
         }
 
-        [Authorize]
-        public IActionResult Library()
-        {
-            RentalDTO dto = new RentalDTO()
-            {
-                Name = "Fast and furious",
-                AmountAvailable = 3,
-                Price = (decimal)12.02,
-                RentalType = RentalType.Movie
-            };
-
-            return View(null, dto);
-        }
+    
 
         [Authorize]
         public async Task<IActionResult> Profile()
