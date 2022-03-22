@@ -16,5 +16,10 @@ namespace MovieStoreRentalService.Services.User
         {
             return await _repo.All<ApplicationUser>().ToListAsync();
         }
+
+        public async Task<ApplicationUser> GetUserById(string id)
+        {
+            return await _repo.All<ApplicationUser>().SingleOrDefaultAsync(x => x.Id == id);
+        }
     }
 }

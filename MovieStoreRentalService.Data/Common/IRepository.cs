@@ -1,4 +1,6 @@
-﻿namespace MovieStoreRentalService.Data.Common
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace MovieStoreRentalService.Data.Common
 {
     public interface IRepository
     {
