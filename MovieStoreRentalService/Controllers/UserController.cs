@@ -47,27 +47,27 @@ namespace MovieStoreRentalService.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> ManageUsers(string id)
-        {
-            var users = await _userService.GetAllUsers();
+        //[Authorize(Roles = "Administrator")]
+        //public async Task<IActionResult> ManageUsers(string id)
+        //{
+        //    var users = await _userService.GetAllUsers();
 
-            var user = users.SingleOrDefault(u => u.Id == id);
+        //    var user = users.SingleOrDefault(u => u.Id == id);
 
-            await _userManager.AddToRoleAsync(user, "Administrator");
+        //    await _userManager.AddToRoleAsync(user, "Administrator");
 
-            return Ok(user);
-        }
+        //    return Ok(user);
+        //}
 
-        [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> CreateRole()
-        {
-            //await _roleManager.CreateAsync(new IdentityRole()
-            //{
-            //    Name = "Administrator"
-            //});
+        //[Authorize(Roles = "Administrator")]
+        //public async Task<IActionResult> CreateRole()
+        //{
+        //    //await _roleManager.CreateAsync(new IdentityRole()
+        //    //{
+        //    //    Name = "Administrator"
+        //    //});
 
-            return Ok();
-        }
+        //    return Ok();
+        //}
     }
 }
