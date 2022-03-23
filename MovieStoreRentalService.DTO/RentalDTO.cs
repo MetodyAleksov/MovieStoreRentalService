@@ -21,4 +21,6 @@ public class RentalDTO
     public decimal Price { get; set; }
 
     public string Description { get; set; }
+
+    public DateTime TimeAdded { get; set; }
 }

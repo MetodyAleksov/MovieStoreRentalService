@@ -8,6 +8,7 @@ public class Rentals
     {
         Id = Guid.NewGuid().ToString();
         UserRentals = new HashSet<UserRentals>();
+        TimeAdded = DateTime.Now;
     }
 
     [Required]
@@ -36,6 +37,8 @@ public class Rentals
 
     [StringLength(300)]
     public string Description { get; set; }
+
+    public DateTime TimeAdded { get; set; }
 
     public ICollection<UserRentals> UserRentals { get; set; }
 }
