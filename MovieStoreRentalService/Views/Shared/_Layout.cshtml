@@ -56,6 +56,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
          }
          else
          {
+             if (this.User.IsInRole("Administrator"))
+             {
+                <li class="nav-item">
+                    <a href="/Rental/Add" class="nav-link">Add</a>
+                </li>
+              }
+
             <li class="nav-item">
                <a href="#" class="nav-link">Cart</a>
             </li>

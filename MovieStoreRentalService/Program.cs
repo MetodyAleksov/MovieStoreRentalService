@@ -14,8 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 //Application DB context
 var connectionString = DatabaseConfiguration.ConnectionString;
 builder.Services.AddDbContext<ApplicationDbContext>
-    (options => options.UseSqlServer(connectionString))
-    .AddDatabaseDeveloperPageExceptionFilter();
+    (options => options.UseSqlServer(connectionString));
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 {
@@ -38,6 +37,7 @@ builder.Services.AddControllersWithViews()
 builder.Services.AddScoped<IRepository, Repository>();
 builder.Services.AddScoped<IRentalService, RentalService>();
 builder.Services.AddScoped<IUserService, UserService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

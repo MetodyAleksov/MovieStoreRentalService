@@ -66,7 +66,8 @@ public class RentalService : IRentalService
                 AmountAvailable = dto.AmountAvailable,
                 Price = dto.Price,
                 Type = dto.RentalType.ToString(),
-                Description = dto.Description
+                Description = dto.Description,
+                TimeAdded = DateTime.Now
             };
 
             await repo.AddAsync(rental);

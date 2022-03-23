@@ -8,7 +8,6 @@ public class Rentals
     {
         Id = Guid.NewGuid().ToString();
         UserRentals = new HashSet<UserRentals>();
-        TimeAdded = DateTime.Now;
     }
 
     [Required]
