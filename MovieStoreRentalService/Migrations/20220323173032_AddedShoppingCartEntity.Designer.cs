@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieStoreRentalService.Data;
 
@@ -11,9 +12,10 @@ using MovieStoreRentalService.Data;
 namespace MovieStoreRentalService.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220323173032_AddedShoppingCartEntity")]
+    partial class AddedShoppingCartEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -304,26 +306,17 @@ namespace MovieStoreRentalService.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("RentalsId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(70)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("ShoppingCarts");
-                });
-
-            modelBuilder.Entity("MovieStoreRentalService.Data.Models.ShoppingCartsRentals", b =>
-                {
-                    b.Property<string>("ShoppingCartsId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("RentalsId")
-                        .HasColumnType("nvarchar(70)");
-
-                    b.HasKey("ShoppingCartsId", "RentalsId");
-
                     b.HasIndex("RentalsId");
 
-                    b.ToTable("ShoppingCartsRentals");
+                    b.ToTable("ShoppingCarts");
                 });
 
             modelBuilder.Entity("MovieStoreRentalService.Data.Models.UserRentals", b =>
@@ -418,26 +411,15 @@ namespace MovieStoreRentalService.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ApplicationUser");
-                });
-
-            modelBuilder.Entity("MovieStoreRentalService.Data.Models.ShoppingCartsRentals", b =>
-                {
                     b.HasOne("MovieStoreRentalService.Data.Models.Rentals", "Rentals")
-                        .WithMany("ShoppingCartsRentals")
+                        .WithMany()
                         .HasForeignKey("RentalsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MovieStoreRentalService.Data.Models.ShoppingCarts", "ShoppingCarts")
-                        .WithMany("ShoppingCartsRentals")
-                        .HasForeignKey("ShoppingCartsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("ApplicationUser");
 
                     b.Navigation("Rentals");
-
-                    b.Navigation("ShoppingCarts");
                 });
 
             modelBuilder.Entity("MovieStoreRentalService.Data.Models.UserRentals", b =>
@@ -471,14 +453,7 @@ namespace MovieStoreRentalService.Migrations
 
             modelBuilder.Entity("MovieStoreRentalService.Data.Models.Rentals", b =>
                 {
-                    b.Navigation("ShoppingCartsRentals");
-
                     b.Navigation("UserRentals");
-                });
-
-            modelBuilder.Entity("MovieStoreRentalService.Data.Models.ShoppingCarts", b =>
-                {
-                    b.Navigation("ShoppingCartsRentals");
                 });
 #pragma warning restore 612, 618
         }

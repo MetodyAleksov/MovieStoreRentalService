@@ -50,6 +50,13 @@
                                         </button>                                        
                                     }
 
+                                    @if(User.Identity.IsAuthenticated)
+                                    {
+                                        <button asp-controller="User" asp-action="AddToCart" class="btn btn-sm btn-primary bg-green" type="submit" value="@(model.Id.ToString())" name="Id">
+                                            <i class="fas fa-check"></i> Add to Cart
+                                        </button>                                        
+                                    }
+
                                     <button class="btn btn-sm btn-primary" type="submit" value="@(model.Id.ToString())" name="Id">
                                         <i class="fas fa-info-circle"></i> View Details
                                     </button>

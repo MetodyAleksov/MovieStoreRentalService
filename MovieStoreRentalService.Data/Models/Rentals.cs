@@ -8,6 +8,7 @@ public class Rentals
     {
         Id = Guid.NewGuid().ToString();
         UserRentals = new HashSet<UserRentals>();
+        ShoppingCartsRentals = new HashSet<ShoppingCartsRentals>();
     }
 
     [Required]
@@ -40,4 +41,5 @@ public class Rentals
     public DateTime TimeAdded { get; set; }
 
     public ICollection<UserRentals> UserRentals { get; set; }
+    public ICollection<ShoppingCartsRentals> ShoppingCartsRentals { get; set; }
 }
