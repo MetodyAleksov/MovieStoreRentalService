@@ -13,17 +13,20 @@ namespace MovieStoreRentalService.Controllers
         private readonly IUserService _userService;
         private readonly IRentalService _rentalService;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
         public UserController
             (RoleManager<IdentityRole> roleManager
             , IUserService userService
             , IRentalService rentalService
-            , UserManager<ApplicationUser> userManager)
+            , UserManager<ApplicationUser> userManager
+            , SignInManager<ApplicationUser> signInManager)
         {
             this._roleManager = roleManager;
             _userManager = userManager;
             _rentalService = rentalService;
             _userService = userService;
+            _signInManager = signInManager;
         }
 
     
@@ -67,6 +70,21 @@ namespace MovieStoreRentalService.Controllers
             await _userManager.AddToRoleAsync(user, "Administrator");
 
             return Ok(user);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Logout()
+        {
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> Logout(string id)
+        {
+            await _signInManager.SignOutAsync();
+
+            return Redirect("/");
         }
 
         //[Authorize(Roles = "Administrator")]
