@@ -89,7 +89,8 @@ public class RentalService : IRentalService
                 RentalType = r.Type.ToString().ToLower() == "movie" ? RentalType.Movie : RentalType.VideoGame,
                 AmountAvailable = r.AmountAvailable,
                 Price = r.Price,
-                Description = r.Description
+                Description = r.Description,
+                TimeAdded = r.TimeAdded
             });
     }
 
@@ -116,7 +117,8 @@ public class RentalService : IRentalService
                 ImageURL = rental.ImageUrl,
                 Name = rental.Name,
                 Price = rental.Price,
-                RentalType = rentalType
+                RentalType = rentalType,
+                TimeAdded = rental.TimeAdded
             };
         }
 
