@@ -4,9 +4,11 @@ using MovieStoreRentalService.Core;
 using MovieStoreRentalService.Data;
 using MovieStoreRentalService.Data.Common;
 using MovieStoreRentalService.ModelBinders;
+using MovieStoreRentalService.Services.Cart;
 using MovieStoreRentalService.Services.Rentals;
 using MovieStoreRentalService.Services.User;
 using DateTimeModelBinderProvider = MovieStoreRentalService.ModelBinders.DateTimeModelBinderProvider;
+using MovieStoreRentalService.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -37,6 +39,7 @@ builder.Services.AddControllersWithViews()
 builder.Services.AddScoped<IRepository, Repository>();
 builder.Services.AddScoped<IRentalService, RentalService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ICartService, CartService>();
 
 var app = builder.Build();
 
