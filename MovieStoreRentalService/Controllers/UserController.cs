@@ -87,6 +87,19 @@ namespace MovieStoreRentalService.Controllers
             return Redirect("/");
         }
 
+        [Authorize]
+        public async Task<IActionResult> AddRentalToCart()
+        {
+            return View();
+        }
+
+        //[Authorize]
+        //[HttpPost]
+        //public async Task<IActionResult> AddRentalToCart(string rentalId)
+        //{
+
+        //}
+
         //[Authorize(Roles = "Administrator")]
         //public async Task<IActionResult> CreateRole()
         //{
