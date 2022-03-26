@@ -15,9 +15,16 @@ namespace MovieStoreRentalService.Services.Cart
 
         public async Task AddCart(string userId)
         {
+            bool hasCart = _repository.All<ShoppingCarts>().Any(c => c.IsActive);
+            if (hasCart)
+            {
+                return;
+            }
+
             ShoppingCarts cart = new ShoppingCarts()
             {
-                ApplicationUserId = userId
+                ApplicationUserId = userId,
+                IsActive = true
             };
 
             await _repository.AddAsync(cart);
@@ -39,7 +46,7 @@ namespace MovieStoreRentalService.Services.Cart
                 throw new ArgumentException("Rental id is invalid!");
             }
 
-            if (userId == null)
+            if (userId != null)
             {
                 cart = _repository.All<ShoppingCarts>().SingleOrDefault(sc => sc.ApplicationUserId == userId);
 
@@ -48,7 +55,7 @@ namespace MovieStoreRentalService.Services.Cart
                     throw new ArgumentException("User does not have a valid cart!");
                 }
             }
-            else if (cartId == null)
+            else if (cartId != null)
             {
                 cart = _repository.All<ShoppingCarts>().SingleOrDefault(sc => sc.Id == cartId);
 
@@ -67,7 +74,7 @@ namespace MovieStoreRentalService.Services.Cart
             await _repository.SaveChangesAsync();
         }
 
-        public async Task<CartDTO> GetUsersCart(string userId)
+        public CartDTO GetUsersCart(string userId)
         {
             var cart = _repository.All<ShoppingCarts>().SingleOrDefault(c => c.ApplicationUserId == userId);
 
