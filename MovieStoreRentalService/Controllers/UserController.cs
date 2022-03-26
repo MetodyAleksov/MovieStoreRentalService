@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using MovieStoreRentalService.Core;
 using MovieStoreRentalService.DTO;
+using MovieStoreRentalService.Services;
 using MovieStoreRentalService.Services.Rentals;
 using MovieStoreRentalService.Services.User;
 
@@ -12,6 +14,7 @@ namespace MovieStoreRentalService.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IUserService _userService;
         private readonly IRentalService _rentalService;
+        private readonly ICartService _cartService;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
@@ -19,6 +22,7 @@ namespace MovieStoreRentalService.Controllers
             (RoleManager<IdentityRole> roleManager
             , IUserService userService
             , IRentalService rentalService
+            , ICartService cartService
             , UserManager<ApplicationUser> userManager
             , SignInManager<ApplicationUser> signInManager)
         {
@@ -27,6 +31,7 @@ namespace MovieStoreRentalService.Controllers
             _rentalService = rentalService;
             _userService = userService;
             _signInManager = signInManager;
+            _cartService = cartService;
         }
 
     
@@ -93,12 +98,42 @@ namespace MovieStoreRentalService.Controllers
             return View();
         }
 
-        //[Authorize]
-        //[HttpPost]
-        //public async Task<IActionResult> AddRentalToCart(string rentalId)
-        //{
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> AddRentalToCart(string rentalId)
+        {
+            (bool isValid, RentalDTO rental) = _rentalService.FindById(rentalId);
 
-        //}
+            if (!isValid)
+            {
+                ViewData[Constants.ErrorMessage] = $"Something went wrong!";
+            }
+
+            ApplicationUser user = await _userManager.GetUserAsync(this.User);
+
+            CartDTO shoppingCart = null;
+
+            try
+            {
+                shoppingCart = _cartService.GetUsersCart(user.Id);
+            }
+            catch (ArgumentException)
+            {
+                await _cartService.AddCart(user.Id);
+                shoppingCart = _cartService.GetUsersCart(user.Id);
+            }
+
+            try
+            {
+                await _cartService.AddRentalToCart(rentalId, null, shoppingCart.CartId);
+            }
+            catch (ArgumentException)
+            {
+            }
+
+            ViewData[Constants.SuccessMessage] = $"Successfully added {rental.Name} to cart!";
+            return Redirect("/Service/Shop");
+        }
 
         //[Authorize(Roles = "Administrator")]
         //public async Task<IActionResult> CreateRole()

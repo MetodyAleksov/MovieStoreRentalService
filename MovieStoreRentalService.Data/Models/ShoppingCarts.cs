@@ -18,6 +18,8 @@ namespace MovieStoreRentalService.Data.Models
         public string ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
 
+        public bool IsActive { get; set; }
+
         public ICollection<ShoppingCartsRentals> ShoppingCartsRentals { get; set; }
     }
 }
