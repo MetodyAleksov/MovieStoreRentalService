@@ -115,12 +115,18 @@ namespace MovieStoreRentalService.Controllers
 
             try
             {
-                shoppingCart = _cartService.GetUsersCart(user.Id);
+                shoppingCart = await _cartService.GetUsersCart(user.Id);
             }
             catch (ArgumentException)
             {
                 await _cartService.AddCart(user.Id);
-                shoppingCart = _cartService.GetUsersCart(user.Id);
+                shoppingCart = await _cartService.GetUsersCart(user.Id);
+            }
+
+            if (shoppingCart.Rentals.Select(r => r.Id).Contains(rentalId))
+            {
+                ViewData[Constants.SuccessMessage] = $"Item already in cart!";
+                return Redirect("/Service/Shop");
             }
 
             try

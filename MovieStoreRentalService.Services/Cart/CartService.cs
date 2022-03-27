@@ -57,7 +57,7 @@ namespace MovieStoreRentalService.Services.Cart
             }
             else if (cartId != null)
             {
-                cart = _repository.All<ShoppingCarts>().SingleOrDefault(sc => sc.Id == cartId);
+                cart = _repository.All<ShoppingCarts>().FirstOrDefault(s => s.Id == cartId);
 
                 if (cart == null)
                 {
@@ -74,9 +74,9 @@ namespace MovieStoreRentalService.Services.Cart
             await _repository.SaveChangesAsync();
         }
 
-        public CartDTO GetUsersCart(string userId)
+        public async Task<CartDTO> GetUsersCart(string userId)
         {
-            var cart = _repository.All<ShoppingCarts>().SingleOrDefault(c => c.ApplicationUserId == userId);
+            var cart = await _repository.GetShoppingCarts(userId);
 
             if (cart == null)
             {
