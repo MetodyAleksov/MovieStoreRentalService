@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MovieStoreRentalService.Data.Models;
 
 namespace MovieStoreRentalService.Data.Common
 {
@@ -11,5 +12,7 @@ namespace MovieStoreRentalService.Data.Common
         Task<int> SaveChangesAsync();
 
         Task RemoveRental(string id);
+
+        Task<ShoppingCarts> GetShoppingCarts(string id);
     }
 }

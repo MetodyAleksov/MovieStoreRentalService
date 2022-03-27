@@ -22,6 +22,14 @@ namespace MovieStoreRentalService.Data.Common
             return DbSet<T>().AsQueryable();
         }
 
+        public async Task<ShoppingCarts> GetShoppingCarts(string userId)
+        {
+            return await dbContext.Set<ShoppingCarts>()
+                .Include(s => s.ShoppingCartsRentals)
+                .ThenInclude(s => s.Rentals)
+                .SingleOrDefaultAsync(s => s.ApplicationUserId == userId && s.IsActive);
+        }
+
         public void Remove(string id)
         {
             throw new NotImplementedException();
