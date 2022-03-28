@@ -25,11 +25,12 @@
               </div>
 
                 <div class="mt-4">
-                    @*TODO: Make this button work*@
-                    <div class="btn btn-primary btn-lg btn-flat">
-                        <i class="fas fa-cart-plus fa-lg mr-2"></i>
-                        Add to Cart
-                    </div>
+                    <form asp-controller="User" asp-action="AddRentalToCart">
+                        <button class="btn btn-primary btn-lg btn-flat" type="submit" value="@(model.Id.ToString())" name="rentalId">
+                            <i class="fas fa-cart-plus fa-lg mr-2"></i>
+                            Add to Cart
+                        </button>
+                    </form>
                 </div>
 
             </div>

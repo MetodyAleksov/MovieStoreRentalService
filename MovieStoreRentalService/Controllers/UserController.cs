@@ -103,6 +103,7 @@ namespace MovieStoreRentalService.Controllers
         public async Task<IActionResult> AddRentalToCart(string rentalId)
         {
             (bool isValid, RentalDTO rental) = _rentalService.FindById(rentalId);
+            rental.TimeAdded = DateTime.Now;
 
             if (!isValid)
             {
