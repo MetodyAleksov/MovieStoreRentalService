@@ -26,7 +26,7 @@ namespace MovieStoreRentalService.Controllers
             , UserManager<ApplicationUser> userManager
             , SignInManager<ApplicationUser> signInManager)
         {
-            this._roleManager = roleManager;
+            _roleManager = roleManager;
             _userManager = userManager;
             _rentalService = rentalService;
             _userService = userService;
@@ -53,12 +53,6 @@ namespace MovieStoreRentalService.Controllers
                 })
                 .ToArray();
 
-            IEnumerable<RentalDTO> usersRentals = await _userService
-                .GetUsersRentals(currentUser.Id);
-
-            ViewBag.UsersRentals = usersRentals.OrderByDescending(r => r.TimeAdded.Year)
-                .ThenByDescending(r => r.TimeAdded.DayOfYear)
-                .ToArray();
             ViewBag.User = currentUser;
             ViewBag.Rentals = rentals;
 

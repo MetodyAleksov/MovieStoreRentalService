@@ -1,10 +1,7 @@
 ﻿@using MovieStoreRentalService.DTO
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
 @{
     ApplicationUser user = (ApplicationUser)ViewBag.User;
-    RentalDTO[] rentals = (RentalDTO[])ViewBag.UsersRentals;
+    RentalDTO[] rentals = (RentalDTO[])ViewBag.Rentals;
 }
 
 <!-- Content Wrapper. Contains page content -->
@@ -47,7 +44,7 @@
 
                 <ul class="list-group list-group-unbordered mb-3">
                   <li class="list-group-item">
-                    <b>Rented Movies</b> <a class="float-right">@user.UserRentals.Count()</a>
+                    <b>Rented Movies</b> <a class="float-right">@rentals.Length</a>
                   </li>
                 </ul>
 
@@ -76,7 +73,7 @@
                     <strong><i class="fas fa-video"></i> @rental.Name</strong>
 
                     <p class="text-muted">
-                      B.S. in Computer Science from the University of Tennessee at Knoxville
+                      @(rental.Description == null ? "" : rental.Description)
                     </p>
 
                     <hr>
