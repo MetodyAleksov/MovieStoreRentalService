@@ -40,18 +40,21 @@ namespace MovieStoreRentalService.Controllers
         public async Task<IActionResult> Profile()
         {
             ApplicationUser currentUser = await _userManager.GetUserAsync(HttpContext.User);
-            RentalDTO[] rentals = _rentalService.ListAllRentals()
-                .Select(r => new RentalDTO()
-                {
-                    Id = r.Id,
-                    Name = r.Name,
-                    AmountAvailable = r.AmountAvailable,
-                    Price = r.Price,
-                    RentalType = r.RentalType,
-                    ImageURL = r.ImageURL,
-                    Description = r.Description
-                })
-                .ToArray();
+
+            var userCartItems = await _cartService.GetUsersCart(currentUser.Id);
+            var rentals = userCartItems.Rentals.Select(r => new RentalDTO()
+            {
+                Id = r.Id,
+                AmountAvailable = r.AmountAvailable,
+                Description = r.Description,
+                ImageURL = r.ImageURL,
+                Name = r.Name,
+                Price = r.Price,
+                RentalType = r.RentalType,
+                TimeAdded = r.TimeAdded,
+            })
+            .OrderByDescending(r => r.TimeAdded)
+            .ToArray();
 
             ViewBag.User = currentUser;
             ViewBag.Rentals = rentals;
