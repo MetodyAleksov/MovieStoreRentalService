@@ -69,6 +69,7 @@
                 {
                     @foreach(RentalDTO rental in rentals.Take(5))
                     {
+
                         <!-- Individual Movice -->
                     <strong><i class="fas fa-video"></i> @rental.Name</strong>
 
@@ -122,9 +123,16 @@
                               <span class="time"><i class="far fa-clock"></i> @((DateTime.UtcNow - rental.TimeAdded).Days == 0 ? "Today" : $"{(DateTime.UtcNow - rental.TimeAdded).Days} days ago")</span>
 
                               <h3 class="timeline-header"> <strong>@(rental.Name)</strong> added to cart</h3>
-
-                            </div>
-                          </div>
+                              <div class="timeline-body">
+                                <p><strong>Price:</strong> @rental.Price </p>
+                                <p><strong>Description:</strong> @rental.Description </p>
+                              </div>
+                              <div class="timeline-footer">
+                                <a href="#" class="btn btn-primary btn-sm">Read more</a>
+                                <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                              </div>
+                                </div>
+                              </div>
                       }
 
                       <!-- END timeline item -->
