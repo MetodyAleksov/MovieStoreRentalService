@@ -128,8 +128,10 @@
                                 <p><strong>Description:</strong> @rental.Description </p>
                               </div>
                               <div class="timeline-footer">
-                                  <button type="button" class="btn btn-sm bg-green">Return</button>
-                                  <button type="button" class="btn btn-sm bg-red">Remove from cart</button>
+                                  <form asp-controller="Service" asp-action="RemoveFromCart">
+                                      <button type="submit" class="btn btn-sm bg-green" name="rentalId" value="@(rental.Id)">Return</button>
+                                      <button type="submit" class="btn btn-sm bg-red" name="rentalId" value="@(rental.Id)">Remove from cart</button>
+                                  </form>
                               </div>
                                 </div>
                               </div>
