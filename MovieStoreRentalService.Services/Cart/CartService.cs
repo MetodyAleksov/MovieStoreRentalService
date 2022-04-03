@@ -102,5 +102,26 @@ namespace MovieStoreRentalService.Services.Cart
                 .ToHashSet(),
             };
         }
+
+        public async Task RemoveRentalFromCart(string rentalId, string userId)
+        {
+            var cart = await _repository.GetShoppingCarts(userId);
+            if (cart == null)
+            {
+                throw new InvalidOperationException("User does not have a cart!");
+            }
+            else
+            {
+                if (cart.ShoppingCartsRentals.Count == 0)
+                {
+                    throw new InvalidOperationException("User does not have any items in cart!");
+                }
+
+                cart.ShoppingCartsRentals
+                    .Remove(cart.ShoppingCartsRentals.Single(c => c.RentalsId == rentalId));
+
+                await _repository.SaveChangesAsync();
+            }
+        }
     }
 }

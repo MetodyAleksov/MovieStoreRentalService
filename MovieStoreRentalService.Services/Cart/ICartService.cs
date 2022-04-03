@@ -7,5 +7,6 @@ namespace MovieStoreRentalService.Services
         Task<CartDTO> GetUsersCart(string userId);
         Task AddCart(string userId);
         Task AddRentalToCart(string rentalId, string userId, string cartId);
+        Task RemoveRentalFromCart(string rentalId, string userId);
     }
 }
