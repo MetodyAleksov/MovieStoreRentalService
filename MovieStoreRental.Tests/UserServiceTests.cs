@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MovieStoreRental.Tests
 {
-    public class UserServiceTests
+    public class OrderServiceTest
     {
         private ServiceProvider serviceProvider;
         private InMemoryDbContext dbContext;
@@ -17,10 +17,10 @@ namespace MovieStoreRental.Tests
         public async Task Setup()
         {
             dbContext = new InMemoryDbContext();
-
             var serviceCollection = new ServiceCollection();
+
             serviceProvider = serviceCollection
-                .AddSingleton(service => dbContext.CreateContext())
+                .AddSingleton(sp => dbContext.CreateContext())
                 .AddSingleton<IRepository, Repository>()
                 .AddSingleton<IRentalService, RentalService>()
                 .AddSingleton<IUserService, UserService>()
@@ -31,13 +31,12 @@ namespace MovieStoreRental.Tests
         }
 
         [Test]
-        public async Task GetAllUsersGetsAllUsers()
+        public async Task TestGetAllUsers()
         {
             var service = serviceProvider.GetService<IUserService>();
-
             var users = await service.GetAllUsers();
 
-            Assert.That(users.Count == 2);
+            Assert.AreEqual(2, users.Count);
         }
 
         [TearDown]
@@ -48,15 +47,14 @@ namespace MovieStoreRental.Tests
 
         private async Task SeedDbAsync(IRepository repo)
         {
-            await repo.AddAsync<ApplicationUser>(new ApplicationUser()
+            await repo.AddAsync(new ApplicationUser()
             {
                 UserName = "Teddy"
             });
-            await repo.AddAsync<ApplicationUser>(new ApplicationUser()
+            await repo.AddAsync(new ApplicationUser()
             {
                 UserName = "Pesho"
             });
-
             await repo.SaveChangesAsync();
         }
     }
