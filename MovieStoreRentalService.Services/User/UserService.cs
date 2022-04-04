@@ -16,7 +16,7 @@ namespace MovieStoreRentalService.Services.User
             _repo = repo;
         }
 
-        public async Task<IEnumerable<ApplicationUser>> GetAllUsers()
+        public async Task<ICollection<ApplicationUser>> GetAllUsers()
         {
             return await _repo.All<ApplicationUser>().ToListAsync();
         }
