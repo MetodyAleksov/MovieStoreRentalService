@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MovieStoreRentalService.Core;
 using MovieStoreRentalService.DTO;
 using MovieStoreRentalService.DTO.Common.Enums;
 using MovieStoreRentalService.Services.Rentals;
 namespace MovieStoreRentalService.Controllers
 {
-    public class RentalController : Controller
+    public class RentalController : BaseController
     {
         private readonly IRentalService _rentalService;
 
@@ -14,12 +15,14 @@ namespace MovieStoreRentalService.Controllers
             this._rentalService = rentalService;
         }
 
+        [Authorize("Administrator")]
         public IActionResult Add()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize("Administrator")]
         public IActionResult Add(string name, string imageUrl, string type, int amountAvailable, decimal price, string description)
         {
             try
@@ -49,6 +52,7 @@ namespace MovieStoreRentalService.Controllers
         }
 
         [HttpPost]
+        [Authorize("Administrator")]
         public IActionResult Remove(string id)
         {
             _rentalService.RemoveRental(id);

@@ -9,7 +9,7 @@ using MovieStoreRentalService.Services.User;
 
 namespace MovieStoreRentalService.Controllers
 {
-    public class UserController : Controller
+    public class UserController : BaseController
     {
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IUserService _userService;
@@ -34,9 +34,6 @@ namespace MovieStoreRentalService.Controllers
             _cartService = cartService;
         }
 
-    
-
-        [Authorize]
         public async Task<IActionResult> Profile()
         {
             ApplicationUser currentUser = await _userManager.GetUserAsync(HttpContext.User);
@@ -74,13 +71,11 @@ namespace MovieStoreRentalService.Controllers
             return Ok(user);
         }
 
-        [Authorize]
         public async Task<IActionResult> Logout()
         {
             return View();
         }
 
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Logout(string id)
         {
@@ -89,13 +84,11 @@ namespace MovieStoreRentalService.Controllers
             return Redirect("/");
         }
 
-        [Authorize]
         public async Task<IActionResult> AddRentalToCart()
         {
             return View();
         }
 
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddRentalToCart(string rentalId)
         {

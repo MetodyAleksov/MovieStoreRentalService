@@ -8,7 +8,7 @@ using MovieStoreRentalService.Services.Rentals;
 
 namespace MovieStoreRentalService.Controllers
 {
-    public class ServiceController : Controller
+    public class ServiceController : BaseController
     {
         private readonly IRentalService _rentalService;
         private readonly ICartService _cartService;
@@ -21,6 +21,7 @@ namespace MovieStoreRentalService.Controllers
             _userManager = userManager; 
         }
 
+        [AllowAnonymous]
         public IActionResult Shop()
         {
             List<RentalDTO> rentals = _rentalService.ListAllRentals().ToList();
@@ -30,6 +31,7 @@ namespace MovieStoreRentalService.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         public IActionResult IndividualView(string id)
         {
             (bool isValid, RentalDTO dto) = _rentalService.FindById(id);
@@ -44,13 +46,11 @@ namespace MovieStoreRentalService.Controllers
             return Redirect("/Service/Shop");
         }
 
-        [Authorize]
         public async Task<IActionResult> RemoveFromCart()
         {
             return Redirect("/User/Profile");
         }
 
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> RemoveFromCart(string rentalId)
         {
