@@ -25,24 +25,5 @@ namespace MovieStoreRentalService.Services.User
         {
             return await _repo.All<ApplicationUser>().SingleOrDefaultAsync(x => x.Id == id);
         }
-
-        public async Task<IEnumerable<RentalDTO>> GetUsersRentals(string id)
-        {
-            ApplicationUser user = await GetUserById(id);
-
-            List<RentalDTO> rentals = new List<RentalDTO>();
-
-            foreach (var rental in user.UserRentals)
-            {
-                (bool exists, RentalDTO rentalDTO) = _rentalService.FindById(rental.RentalId);
-
-                if (exists)
-                {
-                    rentals.Add(rentalDTO);
-                }
-            }
-
-            return rentals;
-        }
     }
 }

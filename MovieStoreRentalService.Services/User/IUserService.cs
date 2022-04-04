@@ -7,7 +7,5 @@ namespace MovieStoreRentalService.Services.User
         Task<IEnumerable<ApplicationUser>> GetAllUsers();
 
         Task<ApplicationUser> GetUserById(string id);
-
-        Task<IEnumerable<RentalDTO>> GetUsersRentals(string id);
     }
 }
