@@ -27,12 +27,37 @@ namespace MovieStoreRental.Tests
                 .BuildServiceProvider();
 
             var repo = serviceProvider.GetService<IRepository>();
+            await SeedDbAsync(repo);
         }
 
         [Test]
-        public void Test1()
+        public async Task GetAllUsersGetsAllUsers()
         {
-            Assert.Pass();
+            var service = serviceProvider.GetService<IUserService>();
+
+            var users = await service.GetAllUsers();
+
+            Assert.That(users.Count == 2);
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            dbContext.Dispose();
+        }
+
+        private async Task SeedDbAsync(IRepository repo)
+        {
+            await repo.AddAsync<ApplicationUser>(new ApplicationUser()
+            {
+                UserName = "Teddy"
+            });
+            await repo.AddAsync<ApplicationUser>(new ApplicationUser()
+            {
+                UserName = "Pesho"
+            });
+
+            await repo.SaveChangesAsync();
         }
     }
 }
