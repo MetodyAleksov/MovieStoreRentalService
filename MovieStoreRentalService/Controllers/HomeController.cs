@@ -19,7 +19,6 @@ namespace MovieStoreRentalService.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
-            ViewData["isAdmin"] = this.User.IsInRole("admin");
             return View();
         }
 
