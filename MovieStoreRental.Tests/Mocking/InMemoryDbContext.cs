@@ -9,7 +9,7 @@ namespace MovieStoreRental.Tests.Mocking
         private readonly SqliteConnection connection;
         private readonly DbContextOptions<ApplicationDbContext> dbContextOptions;
 
-        public InMemoryDbContext(DbContextOptions<ApplicationDbContext> dbContext)
+        public InMemoryDbContext()
         {
             this.connection = new SqliteConnection("Filename=:memory:");
             connection.Open();
@@ -18,7 +18,7 @@ namespace MovieStoreRental.Tests.Mocking
                 .UseSqlite(connection)
                 .Options;
 
-            using var context = new ApplicationDbContext(dbContext);
+            using var context = new ApplicationDbContext(dbContextOptions);
             context.Database.EnsureCreated();
         }
 
