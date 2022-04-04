@@ -35,6 +35,11 @@ builder.Services.AddControllersWithViews()
         op.ModelBinderProviders.Insert(2, new DoubleModelBinderProvider());
     });
 
+builder.Services.AddStackExchangeRedisCache(builder =>
+{
+    builder.Configuration ="localhost";
+});
+
 //Service injection
 builder.Services.AddScoped<IRepository, Repository>();
 builder.Services.AddScoped<IRentalService, RentalService>();

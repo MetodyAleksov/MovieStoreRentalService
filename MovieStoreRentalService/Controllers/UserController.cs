@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
 using MovieStoreRentalService.Core;
 using MovieStoreRentalService.DTO;
 using MovieStoreRentalService.Services;
@@ -17,6 +18,7 @@ namespace MovieStoreRentalService.Controllers
         private readonly ICartService _cartService;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IDistributedCache _cache;
 
         public UserController
             (RoleManager<IdentityRole> roleManager
@@ -24,7 +26,8 @@ namespace MovieStoreRentalService.Controllers
             , IRentalService rentalService
             , ICartService cartService
             , UserManager<ApplicationUser> userManager
-            , SignInManager<ApplicationUser> signInManager)
+            , SignInManager<ApplicationUser> signInManager
+            , IDistributedCache cache)
         {
             _roleManager = roleManager;
             _userManager = userManager;
@@ -32,6 +35,7 @@ namespace MovieStoreRentalService.Controllers
             _userService = userService;
             _signInManager = signInManager;
             _cartService = cartService;
+            _cache = cache;
         }
 
         public async Task<IActionResult> Profile()
