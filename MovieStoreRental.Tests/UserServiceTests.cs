@@ -4,6 +4,7 @@ using MovieStoreRentalService.Data.Common;
 using MovieStoreRentalService.Services.Rentals;
 using MovieStoreRentalService.Services.User;
 using NUnit.Framework;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MovieStoreRental.Tests
@@ -39,6 +40,18 @@ namespace MovieStoreRental.Tests
             Assert.AreEqual(2, users.Count);
         }
 
+        [Test]
+        public async Task GetUserByIdReturnsCorrectUser()
+        {
+            var service = serviceProvider.GetService<IUserService>();
+            var repo = serviceProvider.GetService<IRepository>();
+
+            string userId = repo.All<ApplicationUser>().First().Id;
+            var user = await service.GetUserById(userId);
+
+            Assert.That(user, Is.Not.Null);
+        }
+
         [TearDown]
         public void TearDown()
         {
@@ -55,6 +68,7 @@ namespace MovieStoreRental.Tests
             {
                 UserName = "Pesho"
             });
+            
             await repo.SaveChangesAsync();
         }
     }
