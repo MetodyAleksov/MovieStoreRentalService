@@ -51,9 +51,46 @@ namespace MovieStoreRental.Tests
                 TimeAdded = DateTime.UtcNow
             });
 
-            Assert.That(isValid, Is.True);
+            Assert.That(isValid, Is.True, "Returns false state");
             Assert.That(error, Is.Null);
-            Assert.That(repo.All<Rentals>().Count() == 1);
+            Assert.That(repo.All<Rentals>().Count() == 2, "Service doesn't add the object");
+        }
+
+        [Test]
+        public async Task ListAllRentalsTest()
+        {
+            var service = serviceProvider.GetService<IRentalService>();
+            var repo = serviceProvider.GetService<IRepository>();
+
+            var repoData = repo.All<Rentals>().ToList();
+            var serviceData = service.ListAllRentals().ToList();
+
+            Assert.That(repoData.Count == serviceData.Count);
+        }
+
+        [Test]
+        public async Task FindRentalByIdTest()
+        {
+            var service = serviceProvider.GetService<IRentalService>();
+            var repo = serviceProvider.GetService<IRepository>();
+
+            string rentalId = repo.All<Rentals>().First().Id;
+
+            (bool isValid, RentalDTO dto) = service.FindById(rentalId);
+
+            Assert.That(isValid, Is.True);
+        }
+
+        [Test]
+        public async Task RemoveRentalTest()
+        {
+            var service = serviceProvider.GetService<IRentalService>();
+            var repo = serviceProvider.GetService<IRepository>();
+            int initialCount = repo.All<Rentals>().Count();
+
+            service.RemoveRental(repo.All<Rentals>().First().Id);
+
+            Assert.That(service.ListAllRentals().Count() == (initialCount - 1));
         }
 
         [TearDown]
@@ -64,13 +101,12 @@ namespace MovieStoreRental.Tests
 
         private async Task SeedDbAsync(IRepository repo)
         {
-            await repo.AddAsync(new ApplicationUser()
+            await repo.AddAsync<Rentals>(new Rentals()
             {
-                UserName = "Teddy"
-            });
-            await repo.AddAsync(new ApplicationUser()
-            {
-                UserName = "Pesho"
+                Name = "Peter",
+                Type = "Movie",
+                ImageUrl = "Valid",
+                Description = "Possible"
             });
 
             await repo.SaveChangesAsync();
