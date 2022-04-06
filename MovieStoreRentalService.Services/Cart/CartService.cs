@@ -15,7 +15,7 @@ namespace MovieStoreRentalService.Services.Cart
 
         public async Task AddCart(string userId)
         {
-            bool hasCart = _repository.All<ShoppingCarts>().Any(c => c.IsActive);
+            bool hasCart = _repository.All<ShoppingCarts>().Count() != 0;
             if (hasCart)
             {
                 return;
@@ -110,18 +110,16 @@ namespace MovieStoreRentalService.Services.Cart
             {
                 throw new InvalidOperationException("User does not have a cart!");
             }
-            else
+            
+            if (cart.ShoppingCartsRentals.Count == 0)
             {
-                if (cart.ShoppingCartsRentals.Count == 0)
-                {
-                    throw new InvalidOperationException("User does not have any items in cart!");
-                }
-
-                cart.ShoppingCartsRentals
-                    .Remove(cart.ShoppingCartsRentals.Single(c => c.RentalsId == rentalId));
-
-                await _repository.SaveChangesAsync();
+                throw new InvalidOperationException("User does not have any items in cart!");
             }
+
+            cart.ShoppingCartsRentals
+                .Remove(cart.ShoppingCartsRentals.Single(c => c.RentalsId == rentalId));
+            
+            await _repository.SaveChangesAsync();
         }
     }
 }

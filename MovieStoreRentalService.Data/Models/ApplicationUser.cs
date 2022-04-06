@@ -8,6 +8,7 @@ public class ApplicationUser : IdentityUser
     public ApplicationUser()
     {
         UserRentals = new HashSet<UserRentals>();
+        ShoppingCarts = new HashSet<ShoppingCarts>();
     }
 
     [ForeignKey(nameof(Addresses))]
@@ -17,4 +18,5 @@ public class ApplicationUser : IdentityUser
     public Addresses? Address { get; set; }
     
     public ICollection<UserRentals> UserRentals { get; set; }
+    public ICollection<ShoppingCarts> ShoppingCarts { get; set; }
 }
