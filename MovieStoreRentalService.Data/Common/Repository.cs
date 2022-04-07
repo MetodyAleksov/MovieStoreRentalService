@@ -30,11 +30,6 @@ namespace MovieStoreRentalService.Data.Common
                 .SingleOrDefaultAsync(s => s.ApplicationUserId == userId && s.IsActive);
         }
 
-        public void Remove(string id)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task RemoveRental(string id)
         {
             var rental = this.DbSet<Rentals>()
