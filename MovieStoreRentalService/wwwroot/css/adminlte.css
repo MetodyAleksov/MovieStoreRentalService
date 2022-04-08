@@ -101,6 +101,10 @@ abbr[data-original-title] {
   text-decoration-skip-ink: none;
 }
 
+.hero-background{
+    background-image: url("../img/header.jpeg");
+}
+
 address {
   margin-bottom: 1rem;
   font-style: normal;

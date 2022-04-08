@@ -1,24 +1,34 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using MovieStoreRentalService.DTO;
 using MovieStoreRentalService.Models;
+using MovieStoreRentalService.Services.Rentals;
 using System.Diagnostics;
-using MovieStoreRentalService.Core;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 
 namespace MovieStoreRentalService.Controllers
 {
     public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IRentalService _rentalService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IRentalService rentalService)
         {
             _logger = logger;
+            _rentalService = rentalService;
         }
 
         [AllowAnonymous]
         public IActionResult Index()
         {
+            List<RentalDTO> rentals = _rentalService
+                .ListAllRentals()
+                .OrderByDescending(t => t.TimeAdded)
+                .Take(3)
+                .ToList();
+
+            ViewData["Rentals"] = rentals;
+
             return View();
         }
 
