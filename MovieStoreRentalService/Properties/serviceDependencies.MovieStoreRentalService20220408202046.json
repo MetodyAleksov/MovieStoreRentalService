@@ -5,6 +5,12 @@
       "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/moviestorerentalservicedbserver/databases/MovieStoreRentalService_db",
       "type": "mssql.azure",
       "connectionId": "ConnectionStrings:DefaultConnection"
+    },
+    "secrets1": {
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.KeyVault/vaults/MovieStoreRentalServicev",
+      "type": "secrets.keyVault",
+      "connectionId": "VaultUri"
     }
   }
 }
