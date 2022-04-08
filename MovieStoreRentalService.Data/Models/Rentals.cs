@@ -7,7 +7,6 @@ public class Rentals
     public Rentals()
     {
         Id = Guid.NewGuid().ToString();
-        UserRentals = new HashSet<UserRentals>();
         ShoppingCartsRentals = new HashSet<ShoppingCartsRentals>();
     }
 
@@ -39,7 +38,5 @@ public class Rentals
     public string Description { get; set; }
 
     public DateTime TimeAdded { get; set; }
-
-    public ICollection<UserRentals> UserRentals { get; set; }
     public ICollection<ShoppingCartsRentals> ShoppingCartsRentals { get; set; }
 }

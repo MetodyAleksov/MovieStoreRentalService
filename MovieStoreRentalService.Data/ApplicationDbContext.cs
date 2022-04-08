@@ -16,8 +16,6 @@ namespace MovieStoreRentalService.Data
 
         public DbSet<Rentals> Rentals { get; set; }
 
-        public DbSet<UserRentals> UsersRentals { get; set; }
-
         public DbSet<ShoppingCarts> ShoppingCarts { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -30,8 +28,6 @@ namespace MovieStoreRentalService.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<UserRentals>()
-                .HasKey(m => new { m.UserId, m.RentalId });
 
             modelBuilder.Entity<ShoppingCartsRentals>()
                 .HasKey(m => new { m.ShoppingCartsId, m.RentalsId });

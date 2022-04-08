@@ -7,7 +7,6 @@ public class ApplicationUser : IdentityUser
 {
     public ApplicationUser()
     {
-        UserRentals = new HashSet<UserRentals>();
         ShoppingCarts = new HashSet<ShoppingCarts>();
     }
 
@@ -16,7 +15,5 @@ public class ApplicationUser : IdentityUser
     public string? AddressId { get; set; }
     [PersonalData]
     public Addresses? Address { get; set; }
-    
-    public ICollection<UserRentals> UserRentals { get; set; }
     public ICollection<ShoppingCarts> ShoppingCarts { get; set; }
 }
