@@ -15,14 +15,14 @@ namespace MovieStoreRentalService.Controllers
             this._rentalService = rentalService;
         }
 
-        [Authorize("Administrator")]
+        [Authorize(Roles = "Administrator")]
         public IActionResult Add()
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize("Administrator")]
+        [Authorize(Roles = "Administrator")]
         public IActionResult Add(string name, string imageUrl, string type, int amountAvailable, decimal price, string description)
         {
             try
@@ -52,7 +52,7 @@ namespace MovieStoreRentalService.Controllers
         }
 
         [HttpPost]
-        [Authorize("Administrator")]
+        [Authorize(Roles = "Administrator")]
         public IActionResult Remove(string id)
         {
             _rentalService.RemoveRental(id);
