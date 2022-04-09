@@ -13,12 +13,12 @@ using Azure.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("VaultUri"));
-builder.Configuration.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
+//var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("VaultUri"));
+//builder.Configuration.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
 // Add services to the container.
 
 //Application DB context
-var connectionString = @"Server=tcp:moviestorerentalservicedbserver.database.windows.net,1433;Initial Catalog=MovieStoreRentalService_db;Persist Security Info=False;User ID=teddy;Password={your_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";//DatabaseConfiguration.ConnectionString;
+var connectionString = @"Server=tcp:moviestorerentalservicedbserver.database.windows.net,1433;Initial Catalog=MovieStoreRentalService_db;Persist Security Info=False;User ID=teddy;Password=Metodi2003;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";//DatabaseConfiguration.ConnectionString;
 builder.Services.AddDbContext<ApplicationDbContext>
     (options => options.UseSqlServer(connectionString));
 
