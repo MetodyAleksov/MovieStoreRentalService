@@ -12,8 +12,6 @@ namespace MovieStoreRentalService.Data
         }
         public new DbSet<ApplicationUser> Users { get; set; }
 
-        public DbSet<Addresses> Addresses { get; set; }
-
         public DbSet<Rentals> Rentals { get; set; }
 
         public DbSet<ShoppingCarts> ShoppingCarts { get; set; }

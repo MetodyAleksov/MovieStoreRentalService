@@ -9,11 +9,11 @@ using MovieStoreRentalService.Data;
 
 #nullable disable
 
-namespace MovieStoreRentalService.Migrations
+namespace MovieStoreRentalService.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220323173533_FixedShoppingCart")]
-    partial class FixedShoppingCart
+    [Migration("20220409153810_finalmigration")]
+    partial class finalmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,9 +31,6 @@ namespace MovieStoreRentalService.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
-
-                    b.Property<string>("AddressId")
-                        .HasColumnType("nvarchar(70)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -80,8 +77,6 @@ namespace MovieStoreRentalService.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AddressId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -231,32 +226,6 @@ namespace MovieStoreRentalService.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("MovieStoreRentalService.Data.Models.Addresses", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasMaxLength(70)
-                        .HasColumnType("nvarchar(70)");
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("StreetName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Addresses");
-                });
-
             modelBuilder.Entity("MovieStoreRentalService.Data.Models.Rentals", b =>
                 {
                     b.Property<string>("Id")
@@ -306,6 +275,9 @@ namespace MovieStoreRentalService.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationUserId");
@@ -326,39 +298,6 @@ namespace MovieStoreRentalService.Migrations
                     b.HasIndex("RentalsId");
 
                     b.ToTable("ShoppingCartsRentals");
-                });
-
-            modelBuilder.Entity("MovieStoreRentalService.Data.Models.UserRentals", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("RentalId")
-                        .HasColumnType("nvarchar(70)");
-
-                    b.Property<DateTime>("DateRented")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsPaid")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("ReturnDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("UserId", "RentalId");
-
-                    b.HasIndex("RentalId");
-
-                    b.ToTable("UsersRentals");
-                });
-
-            modelBuilder.Entity("ApplicationUser", b =>
-                {
-                    b.HasOne("MovieStoreRentalService.Data.Models.Addresses", "Address")
-                        .WithMany("Users")
-                        .HasForeignKey("AddressId");
-
-                    b.Navigation("Address");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -415,7 +354,7 @@ namespace MovieStoreRentalService.Migrations
             modelBuilder.Entity("MovieStoreRentalService.Data.Models.ShoppingCarts", b =>
                 {
                     b.HasOne("ApplicationUser", "ApplicationUser")
-                        .WithMany()
+                        .WithMany("ShoppingCarts")
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -442,40 +381,14 @@ namespace MovieStoreRentalService.Migrations
                     b.Navigation("ShoppingCarts");
                 });
 
-            modelBuilder.Entity("MovieStoreRentalService.Data.Models.UserRentals", b =>
-                {
-                    b.HasOne("MovieStoreRentalService.Data.Models.Rentals", "Rentals")
-                        .WithMany("UserRentals")
-                        .HasForeignKey("RentalId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ApplicationUser", "Users")
-                        .WithMany("UserRentals")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Rentals");
-
-                    b.Navigation("Users");
-                });
-
             modelBuilder.Entity("ApplicationUser", b =>
                 {
-                    b.Navigation("UserRentals");
-                });
-
-            modelBuilder.Entity("MovieStoreRentalService.Data.Models.Addresses", b =>
-                {
-                    b.Navigation("Users");
+                    b.Navigation("ShoppingCarts");
                 });
 
             modelBuilder.Entity("MovieStoreRentalService.Data.Models.Rentals", b =>
                 {
                     b.Navigation("ShoppingCartsRentals");
-
-                    b.Navigation("UserRentals");
                 });
 
             modelBuilder.Entity("MovieStoreRentalService.Data.Models.ShoppingCarts", b =>

@@ -5,24 +5,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MovieStoreRentalService.Data.Migrations
 {
-    public partial class addedUserShoppingCartsCollection : Migration
+    public partial class finalmigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Addresses",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
-                    StreetName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    City = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Country = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Addresses", x => x.Id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -38,29 +24,10 @@ namespace MovieStoreRentalService.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Rentals",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Type = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(2083)", maxLength: 2083, nullable: false),
-                    AmountAvailable = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
-                    TimeAdded = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Rentals", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetUsers",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    AddressId = table.Column<string>(type: "nvarchar(70)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -79,11 +46,24 @@ namespace MovieStoreRentalService.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AspNetUsers_Addresses_AddressId",
-                        column: x => x.AddressId,
-                        principalTable: "Addresses",
-                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Rentals",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Type = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(2083)", maxLength: 2083, nullable: false),
+                    AmountAvailable = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
+                    TimeAdded = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Rentals", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -212,33 +192,6 @@ namespace MovieStoreRentalService.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UsersRentals",
-                columns: table => new
-                {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    RentalId = table.Column<string>(type: "nvarchar(70)", nullable: false),
-                    DateRented = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ReturnDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsPaid = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UsersRentals", x => new { x.UserId, x.RentalId });
-                    table.ForeignKey(
-                        name: "FK_UsersRentals_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UsersRentals_Rentals_RentalId",
-                        column: x => x.RentalId,
-                        principalTable: "Rentals",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ShoppingCartsRentals",
                 columns: table => new
                 {
@@ -295,11 +248,6 @@ namespace MovieStoreRentalService.Data.Migrations
                 column: "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_AddressId",
-                table: "AspNetUsers",
-                column: "AddressId");
-
-            migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
@@ -315,11 +263,6 @@ namespace MovieStoreRentalService.Data.Migrations
                 name: "IX_ShoppingCartsRentals_RentalsId",
                 table: "ShoppingCartsRentals",
                 column: "RentalsId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UsersRentals_RentalId",
-                table: "UsersRentals",
-                column: "RentalId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -343,22 +286,16 @@ namespace MovieStoreRentalService.Data.Migrations
                 name: "ShoppingCartsRentals");
 
             migrationBuilder.DropTable(
-                name: "UsersRentals");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
-                name: "ShoppingCarts");
 
             migrationBuilder.DropTable(
                 name: "Rentals");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "ShoppingCarts");
 
             migrationBuilder.DropTable(
-                name: "Addresses");
+                name: "AspNetUsers");
         }
     }
 }

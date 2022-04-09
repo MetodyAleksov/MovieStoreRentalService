@@ -30,9 +30,6 @@ namespace MovieStoreRentalService.Data.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("AddressId")
-                        .HasColumnType("nvarchar(70)");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -78,8 +75,6 @@ namespace MovieStoreRentalService.Data.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AddressId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -229,32 +224,6 @@ namespace MovieStoreRentalService.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("MovieStoreRentalService.Data.Models.Addresses", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasMaxLength(70)
-                        .HasColumnType("nvarchar(70)");
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("StreetName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Addresses");
-                });
-
             modelBuilder.Entity("MovieStoreRentalService.Data.Models.Rentals", b =>
                 {
                     b.Property<string>("Id")
@@ -327,15 +296,6 @@ namespace MovieStoreRentalService.Data.Migrations
                     b.HasIndex("RentalsId");
 
                     b.ToTable("ShoppingCartsRentals");
-                });
-
-            modelBuilder.Entity("ApplicationUser", b =>
-                {
-                    b.HasOne("MovieStoreRentalService.Data.Models.Addresses", "Address")
-                        .WithMany("Users")
-                        .HasForeignKey("AddressId");
-
-                    b.Navigation("Address");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -422,11 +382,6 @@ namespace MovieStoreRentalService.Data.Migrations
             modelBuilder.Entity("ApplicationUser", b =>
                 {
                     b.Navigation("ShoppingCarts");
-                });
-
-            modelBuilder.Entity("MovieStoreRentalService.Data.Models.Addresses", b =>
-                {
-                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("MovieStoreRentalService.Data.Models.Rentals", b =>
