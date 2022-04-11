@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using MovieStoreRentalService.Data.Models;
+using MovieStoreRentalService.Data.Common;
 
 namespace MovieStoreRentalService.Areas.Identity.Pages.Account
 {
@@ -23,14 +24,17 @@ namespace MovieStoreRentalService.Areas.Identity.Pages.Account
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IRepository _repository;
 
         public LoginModel(SignInManager<ApplicationUser> signInManager
             , ILogger<LoginModel> logger
-            ,UserManager<ApplicationUser> userManager)
+            ,UserManager<ApplicationUser> userManager,
+            IRepository repo)
         {
             _signInManager = signInManager;
             _logger = logger;
             _userManager = userManager;
+            _repository = repo; 
         }
 
         /// <summary>
@@ -116,6 +120,13 @@ namespace MovieStoreRentalService.Areas.Identity.Pages.Account
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+
+                if(!_repository.All<ApplicationUser>().Any(u => u.Email == this.Input.Email))
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    return Page();
+                }
+
                 var result = await _signInManager.PasswordSignInAsync(await _userManager.FindByEmailAsync(this.Input.Email), Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
