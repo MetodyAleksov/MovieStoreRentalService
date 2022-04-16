@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using MovieStoreRentalService.DTO;
 using MovieStoreRentalService.Models;
 using MovieStoreRentalService.Services.Rentals;
@@ -11,21 +12,36 @@ namespace MovieStoreRentalService.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IRentalService _rentalService;
-
-        public HomeController(ILogger<HomeController> logger, IRentalService rentalService)
+        private readonly IMemoryCache _memoryCache;
+        public HomeController(ILogger<HomeController> logger
+            , IRentalService rentalService
+            , IMemoryCache memoryCache)
         {
             _logger = logger;
             _rentalService = rentalService;
+            _memoryCache = memoryCache;
         }
 
         [AllowAnonymous]
         public IActionResult Index()
         {
-            List<RentalDTO> rentals = _rentalService
+            List<RentalDTO> rentals;
+
+            if (!this._memoryCache.TryGetValue("date", out rentals)) // Look for cache key.
+            {
+                rentals = _rentalService
                 .ListAllRentals()
                 .OrderByDescending(t => t.TimeAdded)
                 .Take(3)
-                .ToList();
+                .ToList(); // Key not in cache, so get data.
+
+                var cacheEntryOptions = new MemoryCacheEntryOptions() // Set cache options.
+                        .SetSlidingExpiration(TimeSpan.FromMinutes(10)); // Keep in cache for this time.
+                                                                        // Reset time if accessed.
+
+                // Save data in cache.
+                this._memoryCache.Set("date", rentals, cacheEntryOptions);
+            }
 
             ViewData["Rentals"] = rentals;
 
