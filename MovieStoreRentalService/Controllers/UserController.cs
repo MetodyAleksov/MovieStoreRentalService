@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Caching.Memory;
 using MovieStoreRentalService.Core;
 using MovieStoreRentalService.DTO;
 using MovieStoreRentalService.Services;
@@ -19,6 +20,7 @@ namespace MovieStoreRentalService.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IDistributedCache _cache;
+        private readonly IMemoryCache _memoryCache;
 
         public UserController
             (RoleManager<IdentityRole> roleManager
@@ -27,7 +29,8 @@ namespace MovieStoreRentalService.Controllers
             , ICartService cartService
             , UserManager<ApplicationUser> userManager
             , SignInManager<ApplicationUser> signInManager
-            , IDistributedCache cache)
+            , IDistributedCache cache
+            , IMemoryCache memoryCache)
         {
             _roleManager = roleManager;
             _userManager = userManager;
@@ -36,32 +39,52 @@ namespace MovieStoreRentalService.Controllers
             _signInManager = signInManager;
             _cartService = cartService;
             _cache = cache;
+            _memoryCache = memoryCache;
         }
 
         public async Task<IActionResult> Profile()
         {
-            ApplicationUser currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            ApplicationUser currentUser;
+
+            if (!this._memoryCache.TryGetValue("currentUser", out currentUser))
+            {
+                currentUser = await _userManager.GetUserAsync(HttpContext.User);
+
+                var cacheEntryOptions = new MemoryCacheEntryOptions()
+                        .SetSlidingExpiration(TimeSpan.FromMinutes(5)); 
+
+                this._memoryCache.Set("currentUser", currentUser, cacheEntryOptions);
+            }
+
             RentalDTO[] rentals = new RentalDTO[0];
 
-            try
+            if (!this._memoryCache.TryGetValue("rentals", out rentals))
             {
-                var userCartItems = await _cartService.GetUsersCart(currentUser.Id);
-                rentals = userCartItems.Rentals.Select(r => new RentalDTO()
+                try
                 {
-                    Id = r.Id,
-                    AmountAvailable = r.AmountAvailable,
-                    Description = r.Description,
-                    ImageURL = r.ImageURL,
-                    Name = r.Name,
-                    Price = r.Price,
-                    RentalType = r.RentalType,
-                    TimeAdded = r.TimeAdded,
-                })
-            .OrderByDescending(r => r.TimeAdded)
-            .ToArray();
-            }
-            catch (ArgumentException)
-            {
+                    var userCartItems = await _cartService.GetUsersCart(currentUser.Id);
+                    rentals = userCartItems.Rentals.Select(r => new RentalDTO()
+                    {
+                        Id = r.Id,
+                        AmountAvailable = r.AmountAvailable,
+                        Description = r.Description,
+                        ImageURL = r.ImageURL,
+                        Name = r.Name,
+                        Price = r.Price,
+                        RentalType = r.RentalType,
+                        TimeAdded = r.TimeAdded,
+                    })
+                .OrderByDescending(r => r.TimeAdded)
+                .ToArray();
+                }
+                catch (ArgumentException)
+                {
+                }
+
+                var cacheEntryOptions = new MemoryCacheEntryOptions()
+                        .SetSlidingExpiration(TimeSpan.FromMinutes(5));
+
+                this._memoryCache.Set("rentals", rentals, cacheEntryOptions);
             }
 
             ViewBag.User = currentUser;
