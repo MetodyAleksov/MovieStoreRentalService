@@ -2,6 +2,7 @@
 using MovieStoreRentalService.Data.Common;
 using MovieStoreRentalService.DTO;
 using MovieStoreRentalService.DTO.Common.Enums;
+using MovieStoreRentalService.Data.Models;
 using System.Text;
 
 namespace MovieStoreRentalService.Services.Rentals;
@@ -129,5 +130,18 @@ public class RentalService : IRentalService
     public void RemoveRental(string id)
     {
         repo.RemoveRental(id);
+    }
+
+    public async Task EditRental(string id, RentalDTO newData)
+    {
+        var rental = this.repo.All<Data.Models.Rentals>().Single(r => r.Id == id);
+        rental.Name = newData.Name;
+        rental.Price = newData.Price;
+        rental.TimeAdded = newData.TimeAdded;
+        rental.Description = newData.Description;
+        rental.ImageUrl = newData.ImageURL;
+        rental.AmountAvailable = newData.AmountAvailable;
+
+        await repo.SaveChangesAsync();
     }
 }
