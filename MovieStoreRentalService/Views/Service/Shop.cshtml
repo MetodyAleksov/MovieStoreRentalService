@@ -45,9 +45,18 @@
 
                                     @if (User.IsInRole("Administrator"))
                                     {
-                                        <button asp-controller="Rental" asp-action="Remove" class="btn btn-sm btn-primary bg-red" type="submit" value="@(model.Id.ToString())" name="Id">
+                                        <button asp-controller="Rental" asp-action="Edit" formmethod="get" class="btn btn-sm btn-primary bg-blue" type="submit" value="@(model.Id.ToString())" name="Id">
+                                            <i class="fas fa-cog"></i>
+                                        </button>
+                                        
+                                        @*<a href="/Rental/Edit" class="btn btn-sm btn-primary bg-blue" value="@(model.Id.ToString())" name="Id">
+                                            <i class="fas fa-cog"></i>    
+                                        </a>*@
+
+                                        <button asp-controller="Rental" asp-action="Edit" class="btn btn-sm btn-primary bg-red" type="submit" value="@(model.Id.ToString())" name="Id">
                                             <i class="fas fa-ban"></i>
-                                        </button>                                        
+                                        </button>
+                                        
                                     }
 
                                     @if(User.Identity.IsAuthenticated)
