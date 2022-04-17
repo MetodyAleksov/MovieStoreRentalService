@@ -57,6 +57,7 @@ namespace MovieStoreRentalService.Controllers
         {
             _rentalService.RemoveRental(id);
 
+            ViewData[Constants.SuccessMessage] = "Removed rental!";
             return Redirect("/Service/Shop");
         }
     }
