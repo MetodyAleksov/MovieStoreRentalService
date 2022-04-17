@@ -46,20 +46,20 @@ namespace MovieStoreRentalService.Controllers
         {
             ApplicationUser currentUser;
 
-            if (!this._memoryCache.TryGetValue("currentUser", out currentUser))
-            {
+            //if (!this._memoryCache.TryGetValue("currentUser", out currentUser))
+            //{
                 currentUser = await _userManager.GetUserAsync(HttpContext.User);
 
-                var cacheEntryOptions = new MemoryCacheEntryOptions()
-                        .SetSlidingExpiration(TimeSpan.FromMinutes(5)); 
+                //var cacheEntryOptions = new MemoryCacheEntryOptions()
+                        //.SetSlidingExpiration(TimeSpan.FromMinutes(5)); 
 
-                this._memoryCache.Set("currentUser", currentUser, cacheEntryOptions);
-            }
+                //this._memoryCache.Set("currentUser", currentUser, cacheEntryOptions);
+            //}
 
             RentalDTO[] rentals = new RentalDTO[0];
 
-            if (!this._memoryCache.TryGetValue("rentals", out rentals))
-            {
+            //if (!this._memoryCache.TryGetValue("rentals", out rentals))
+            //{
                 try
                 {
                     var userCartItems = await _cartService.GetUsersCart(currentUser.Id);
@@ -81,11 +81,11 @@ namespace MovieStoreRentalService.Controllers
                 {
                 }
 
-                var cacheEntryOptions = new MemoryCacheEntryOptions()
-                        .SetSlidingExpiration(TimeSpan.FromMinutes(5));
+                //var cacheEntryOptions = new MemoryCacheEntryOptions()
+                //        .SetSlidingExpiration(TimeSpan.FromMinutes(5));
 
-                this._memoryCache.Set("rentals", rentals, cacheEntryOptions);
-            }
+                //this._memoryCache.Set("rentals", rentals, cacheEntryOptions);
+            //}
 
             ViewBag.User = currentUser;
             ViewBag.Rentals = rentals;

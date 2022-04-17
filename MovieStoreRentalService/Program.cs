@@ -4,18 +4,13 @@ using MovieStoreRentalService.Core;
 using MovieStoreRentalService.Data;
 using MovieStoreRentalService.Data.Common;
 using MovieStoreRentalService.ModelBinders;
+using MovieStoreRentalService.Services;
 using MovieStoreRentalService.Services.Cart;
 using MovieStoreRentalService.Services.Rentals;
 using MovieStoreRentalService.Services.User;
 using DateTimeModelBinderProvider = MovieStoreRentalService.ModelBinders.DateTimeModelBinderProvider;
-using MovieStoreRentalService.Services;
-using Azure.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
-
-//var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("VaultUri"));
-//builder.Configuration.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
-// Add services to the container.
 
 //Application DB context
 var connectionString = DatabaseConfiguration.ConnectionString;
