@@ -73,6 +73,10 @@
 
                                     @if (User.IsInRole("Administrator"))
                                     {
+                                        <button asp-controller="Rental" asp-action="Edit" formmethod="get" class="btn btn-sm btn-primary bg-blue" type="submit" value="@(model.Id.ToString())" name="Id">
+                                            <i class="fas fa-cog"></i>
+                                        </button>
+
                                         <button asp-controller="Rental" asp-action="Remove" class="btn btn-sm btn-primary bg-red" type="submit" value="@(model.Id.ToString())" name="Id">
                                             <i class="fas fa-ban"></i>
                                         </button>                                        
