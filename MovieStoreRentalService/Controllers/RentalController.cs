@@ -60,5 +60,37 @@ namespace MovieStoreRentalService.Controllers
             ViewData[Constants.SuccessMessage] = "Removed rental!";
             return Redirect("/Service/Shop");
         }
+
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> Edit(string id)
+        {
+            var rental = _rentalService.FindById(id);
+
+            ViewData["rentalId"] = id;
+            ViewData["rental"] = rental.Item2;
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> Edit(string id, string name, string imageUrl, string rentalType, int amountAvailable, decimal price, string description)
+        {
+            RentalType.TryParse(rentalType, true, out RentalType rentalTypeEnum);
+
+            RentalDTO editedRental = new RentalDTO()
+            {
+                Name = name,
+                ImageURL = imageUrl,
+                RentalType = rentalTypeEnum,
+                AmountAvailable = amountAvailable,
+                Price = price,
+                Description = description
+            };
+
+            await _rentalService.EditRental(id, editedRental);
+
+            ViewData[Constants.SuccessMessage] = "Successfully edited rental!";
+            return Redirect("/");
+        }
     }
 }
