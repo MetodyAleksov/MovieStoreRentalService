@@ -23,7 +23,7 @@ namespace MovieStoreRentalService.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Administrator")]
-        public IActionResult Add(string name, string imageUrl, string type, int amountAvailable, decimal price, string description)
+        public IActionResult Add(string name, string imageUrl, string type, int amountAvailable, decimal price, string description, string directorName)
         {
             try
             {
@@ -36,7 +36,8 @@ namespace MovieStoreRentalService.Controllers
                     RentalType = rentalType,
                     AmountAvailable = amountAvailable,
                     Price = price,
-                    Description = description
+                    Description = description,
+                    DirectorName = directorName
                 };
 
                 _rentalService.AddRental(dto);
