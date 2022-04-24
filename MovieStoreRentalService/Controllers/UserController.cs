@@ -166,15 +166,15 @@ namespace MovieStoreRentalService.Controllers
             return Redirect("/Service/Shop");
         }
 
-        //[Authorize(Roles = "Administrator")]
-        //public async Task<IActionResult> CreateRole()
-        //{
-        //    await _roleManager.CreateAsync(new IdentityRole()
-        //    {
-        //        Name = "Administrator"
-        //    });
+        [AllowAnonymous]
+        public async Task<IActionResult> CreateRole()
+        {
+            await _roleManager.CreateAsync(new IdentityRole()
+            {
+                Name = "Administrator"
+            });
 
-        //    return Ok();
-        //}
+            return Ok();
+        }
     }
 }
