@@ -1,8 +1,8 @@
 ﻿using MovieStoreRentalService.Core;
 using MovieStoreRentalService.Data.Common;
+using MovieStoreRentalService.Data.Models;
 using MovieStoreRentalService.DTO;
 using MovieStoreRentalService.DTO.Common.Enums;
-using MovieStoreRentalService.Data.Models;
 using System.Text;
 
 namespace MovieStoreRentalService.Services.Rentals;
@@ -70,6 +70,23 @@ public class RentalService : IRentalService
                 Description = dto.Description,
                 TimeAdded = DateTime.Now
             };
+
+            MovieDirector director;
+
+            if (repo.All<MovieDirector>().Any(x => x.Name == dto.DirectorName))
+            {
+                director = repo.All<MovieDirector>().First(d => d.Name == dto.DirectorName);
+            }
+            else
+            {
+                director = new MovieDirector()
+                {
+                    Name = dto.DirectorName
+                };
+            }
+
+            rental.MovieDirector = director;
+            rental.MovieDirectorId = director.Id;
 
             await repo.AddAsync(rental);
             await repo.SaveChangesAsync();
