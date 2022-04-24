@@ -23,4 +23,6 @@ public class RentalDTO
     public string Description { get; set; }
 
     public DateTime TimeAdded { get; set; }
+
+    public string DirectorName { get; set; }
 }
