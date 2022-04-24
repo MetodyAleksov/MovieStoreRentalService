@@ -109,7 +109,8 @@ public class RentalService : IRentalService
                 AmountAvailable = r.AmountAvailable,
                 Price = r.Price,
                 Description = r.Description,
-                TimeAdded = r.TimeAdded
+                TimeAdded = r.TimeAdded,
+                DirectorName = r.MovieDirector.Name
             });
     }
 
@@ -137,7 +138,8 @@ public class RentalService : IRentalService
                 Name = rental.Name,
                 Price = rental.Price,
                 RentalType = rentalType,
-                TimeAdded = rental.TimeAdded
+                TimeAdded = rental.TimeAdded,
+                DirectorName = rental.MovieDirector.Name
             };
         }
 
@@ -158,6 +160,7 @@ public class RentalService : IRentalService
         rental.Description = newData.Description;
         rental.ImageUrl = newData.ImageURL;
         rental.AmountAvailable = newData.AmountAvailable;
+        rental.MovieDirector.Name = newData.DirectorName;
 
         await repo.SaveChangesAsync();
     }

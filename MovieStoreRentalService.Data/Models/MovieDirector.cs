@@ -6,7 +6,7 @@ namespace MovieStoreRentalService.Data.Models
     {
         public MovieDirector()
         {
-            Id = new Guid().ToString();
+            Id = Guid.NewGuid().ToString();
             Movies = new HashSet<Rentals>();
         }
 
