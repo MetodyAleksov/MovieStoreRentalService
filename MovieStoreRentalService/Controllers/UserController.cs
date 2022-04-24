@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.Memory;
 using MovieStoreRentalService.Core;
+using MovieStoreRentalService.Data.Common;
 using MovieStoreRentalService.DTO;
 using MovieStoreRentalService.Services;
 using MovieStoreRentalService.Services.Rentals;
@@ -21,6 +22,7 @@ namespace MovieStoreRentalService.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IDistributedCache _cache;
         private readonly IMemoryCache _memoryCache;
+        private readonly IRepository _repo;
 
         public UserController
             (RoleManager<IdentityRole> roleManager
@@ -30,7 +32,8 @@ namespace MovieStoreRentalService.Controllers
             , UserManager<ApplicationUser> userManager
             , SignInManager<ApplicationUser> signInManager
             , IDistributedCache cache
-            , IMemoryCache memoryCache)
+            , IMemoryCache memoryCache
+            , IRepository repo)
         {
             _roleManager = roleManager;
             _userManager = userManager;
@@ -40,6 +43,7 @@ namespace MovieStoreRentalService.Controllers
             _cartService = cartService;
             _cache = cache;
             _memoryCache = memoryCache;
+            _repo = repo;
         }
 
         public async Task<IActionResult> Profile()
@@ -166,15 +170,31 @@ namespace MovieStoreRentalService.Controllers
             return Redirect("/Service/Shop");
         }
 
-        [AllowAnonymous]
-        public async Task<IActionResult> CreateRole()
+        //[Authorize("Administrator")]
+        public async Task<IActionResult> UsersDisplay()
         {
-            await _roleManager.CreateAsync(new IdentityRole()
-            {
-                Name = "Administrator"
-            });
+            var users = await _userService.GetAllUsers();
 
-            return Ok();
+            ViewData["Users"] = users;
+
+            return View();
         }
+
+        //[Authorize("Administrator")]
+        public IActionResult RolesDisplay()
+        {
+            return View();
+        }
+
+        //[AllowAnonymous]
+        //public async Task<IActionResult> CreateRole()
+        //{
+        //    await _roleManager.CreateAsync(new IdentityRole()
+        //    {
+        //        Name = "Administrator"
+        //    });
+
+        //    return Ok();
+        //}
     }
 }

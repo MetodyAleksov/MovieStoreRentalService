@@ -1,0 +1,33 @@
+﻿@{
+    var users = (ICollection<ApplicationUser>)ViewData["Users"];
+}
+
+<div class="card">
+              <div class="card-header">
+                <h3 class="card-title">All registered users</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example2" class="table table-bordered table-hover">
+                  <thead>
+                  <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Phone number</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+
+                @foreach(ApplicationUser user in users)
+                {
+                 <tr>
+                    <td>@user.UserName</td>
+                    <td>@user.Email</td>
+                    <td>@user.PhoneNumber</td>
+                  </tr>   
+                }
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>

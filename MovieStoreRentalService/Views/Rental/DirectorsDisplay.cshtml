@@ -1,0 +1,31 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    var directors = (List<string>)ViewData["Directors"];
+}
+<div class="card">
+              <div class="card-header">
+                <h3 class="card-title">All registered users</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example2" class="table table-bordered table-hover">
+                  <thead>
+                  <tr>
+                    <th>Director Name</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+
+                @foreach(string director in directors)
+                {
+                 <tr>
+                    <td>@director</td>
+                  </tr>   
+                }
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>

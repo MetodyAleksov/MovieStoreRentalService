@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MovieStoreRentalService.Core;
+using MovieStoreRentalService.Data.Common;
+using MovieStoreRentalService.Data.Models;
 using MovieStoreRentalService.DTO;
 using MovieStoreRentalService.DTO.Common.Enums;
 using MovieStoreRentalService.Services.Rentals;
@@ -9,10 +11,13 @@ namespace MovieStoreRentalService.Controllers
     public class RentalController : BaseController
     {
         private readonly IRentalService _rentalService;
+        private readonly IRepository _repo;
 
-        public RentalController(IRentalService rentalService)
+        public RentalController(IRentalService rentalService
+            , IRepository repo)
         {
             this._rentalService = rentalService;
+            _repo = repo;
         }
 
         [Authorize(Roles = "Administrator")]
@@ -93,6 +98,16 @@ namespace MovieStoreRentalService.Controllers
 
             ViewData[Constants.SuccessMessage] = "Successfully edited rental!";
             return Redirect("/");
+        }
+
+        [AllowAnonymous]
+        public async Task<IActionResult> DirectorsDisplay()
+        {
+            var directors = _repo.All<MovieDirector>().Select(d => d.Name).ToList();
+
+            ViewData["Directors"] = directors;
+
+            return View();
         }
     }
 }
