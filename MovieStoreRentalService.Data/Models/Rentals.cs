@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MovieStoreRentalService.Data.Models;
 
@@ -39,4 +40,8 @@ public class Rentals
 
     public DateTime TimeAdded { get; set; }
     public ICollection<ShoppingCartsRentals> ShoppingCartsRentals { get; set; }
+
+    [ForeignKey(nameof(MovieDirector))]
+    public string MovieDirectorId { get; set; }
+    public MovieDirector MovieDirector { get; set; }
 }

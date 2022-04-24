@@ -16,6 +16,8 @@ namespace MovieStoreRentalService.Data
 
         public DbSet<ShoppingCarts> ShoppingCarts { get; set; }
 
+        public DbSet<MovieDirector> MovieDirectors { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
