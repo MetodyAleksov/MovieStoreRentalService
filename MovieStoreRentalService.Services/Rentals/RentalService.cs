@@ -118,6 +118,12 @@ public class RentalService : IRentalService
     {
         var rental = repo.All<Data.Models.Rentals>()
             .SingleOrDefault(d => d.Id == id);
+
+        if(rental.MovieDirector is null)
+        {
+            rental.MovieDirector = repo.All<Data.Models.MovieDirector>().First(d => d.Id == rental.MovieDirectorId);
+        }
+
         bool isValid = true;
         RentalDTO dto = null;
 
@@ -160,7 +166,23 @@ public class RentalService : IRentalService
         rental.Description = newData.Description;
         rental.ImageUrl = newData.ImageURL;
         rental.AmountAvailable = newData.AmountAvailable;
-        rental.MovieDirector.Name = newData.DirectorName;
+
+        MovieDirector director;
+
+        if (!this.repo.All<MovieDirector>().Any(d => d.Name == newData.DirectorName))
+        {
+            director = new MovieDirector()
+            {
+                Name = newData.DirectorName
+            };
+        }
+        else
+        {
+            director = this.repo.All<MovieDirector>().First(d => d.Name == newData.DirectorName);
+        }
+
+        rental.MovieDirector = director;
+        rental.MovieDirectorId = director.Id;
 
         await repo.SaveChangesAsync();
     }
