@@ -79,7 +79,7 @@ namespace MovieStoreRentalService.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> Edit(string id, string name, string imageUrl, string rentalType, int amountAvailable, decimal price, string description, string directorName)
+        public async Task<IActionResult> Edit(string id, string name, string imageUrl, string rentalType, int amountAvailable, decimal price, string description, string movieDirector)
         {
             RentalType.TryParse(rentalType, true, out RentalType rentalTypeEnum);
 
@@ -91,7 +91,7 @@ namespace MovieStoreRentalService.Controllers
                 AmountAvailable = amountAvailable,
                 Price = price,
                 Description = description,
-                DirectorName = directorName
+                DirectorName = movieDirector
             };
 
             await _rentalService.EditRental(id, editedRental);
