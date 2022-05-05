@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MovieStoreRentalService.Data.Common;
 using MovieStoreRentalService.DTO;
+using MovieStoreRentalService.Models;
 using MovieStoreRentalService.Services;
 using MovieStoreRentalService.Services.Rentals;
 
@@ -22,13 +23,20 @@ namespace MovieStoreRentalService.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult Shop()
+        public IActionResult Shop(int? pageNumber)
         {
-            List<RentalDTO> rentals = _rentalService.ListAllRentals().ToList();
+            if(pageNumber is null)
+            {
+                pageNumber = 1;
+            }
+
+            int pageSize = 3;
+
+            var rentals = _rentalService.ListAllRentals();
 
             ViewData["Rentals"] = rentals;
 
-            return View();
+            return View(PaginatedList<RentalDTO>.CreateAsync(rentals, pageNumber ?? 1, pageSize));
         }
 
         [AllowAnonymous]
